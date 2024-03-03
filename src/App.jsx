@@ -3,14 +3,16 @@ import Footer from './components/Footer/Footer.jsx'
 import Header from './components/Header/Header.jsx'
 
 
+import ProjectUpload from './components/ProjectUpload'
+
 function App() {
- 
+
+
   return (
     <>
-    <Header />
-    <Footer />
+      <Header />
+      <Footer />
     </>
   )
 }
-
 export default App
