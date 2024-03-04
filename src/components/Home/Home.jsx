@@ -8,6 +8,7 @@ export default function Home() {
            <video autoPlay loop muted className="w-full h-screen object-cover">
                 <source src='src/assets/booksBackground.mp4' type="video/mp4" />
             </video>
+            <h1>Hello</h1>
         </div>
     );
 }

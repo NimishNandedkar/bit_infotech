@@ -1,13 +1,14 @@
 import React from 'react'
-// import "./ProjectUpload.css";
+import "./ProjectUpload.css";
 import DropdownButton from './Dropdown';
 import InputField from './InputField.jsx';
+import FileDragandDrop from './FileDragandDrop.jsx';
 
 function ProjectUpload(params) {
 	
 	return (
 		<>
-		<h3 className="text-3xl font-bold text-center mt-10">Upload Your Project</h3>
+		{/* <h3 className="text-3xl font-bold text-center mt-10">Upload Your Project</h3> */}
 
 			{/* <video autoplay muted loop id="myVideo">
 		<source src="../assets/booksBackground.mp4" type="video/mp4"/>
@@ -31,9 +32,10 @@ function ProjectUpload(params) {
 						{/* Below code for drop down */}
 
 						<DropdownButton />
+						<FileDragandDrop/>
 
 						{/* Above code for drop down */}					
-						<div className="mb-6">
+						{/* <div className="mb-6">
 							<label for="fileAttachment" className="block text-gray-700 text-sm font-bold mb-2 ">Attach File:</label>
 							<div className="relative border-2 rounded-md px-4 py-3 bg-white flex items-center justify-between hover:border-blue-500 transition duration-150 ease-in-out">
 								<input type="file" id="fileAttachment" name="fileAttachment" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
@@ -45,7 +47,7 @@ function ProjectUpload(params) {
 								</div>
 								<span className="text-sm text-gray-500">Max file size: 5MB</span>
 							</div>
-						</div>
+						</div> */}
 
 						<div className="flex items-center justify-between">
 							<button type="submit" className="flex justify-center items-center bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue text-white py-2 px-4 rounded-md transition duration-300 gap-2"> Upload <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" id="send" fill="#fff">
