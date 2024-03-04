@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
+
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -68,29 +69,39 @@ export default function Header() {
                                 >
                                     Home
                                 </NavLink>
-                                
-                            </li>
 
+                            </li>
                             <li>
                                 <NavLink
                                     to="/student-corner"
                                     onClick={toggleMobileMenu}
-                                    className=" font-semibold text-black hover:text-blue-700"
+                                    className="  font-semibold text-black hover:text-blue-700"
                                 >
                                     Student Corner
                                 </NavLink>
-                                
+
                             </li>
 
+                            
                             <li>
                                 <NavLink
                                     to="/blogs"
                                     onClick={toggleMobileMenu}
                                     className="  font-semibold text-black hover:text-blue-700"
                                 >
-                                   Blogs
+                                    Blogs
                                 </NavLink>
-                                
+
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/seminar-webinar"
+                                    onClick={toggleMobileMenu}
+                                    className="  font-semibold text-black hover:text-blue-700"
+                                >
+                                    Seminar-Webinar
+                                </NavLink>
+
                             </li>
                         </ul>
                     </div>
@@ -108,12 +119,33 @@ export default function Header() {
                                 </NavLink>
                             </li>
 
-                            <li>
+                            <li className="relative">
                                 <NavLink
                                     to="/student-corner"
                                     className={({ isActive }) =>
-                                        ` text-base block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-blue-700" : "text-gray-700"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-700 lg:p-0`}>
+                                        `text-base block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-blue-700" : "text-gray-700"
+                                        } border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-700 lg:p-0`
+                                    }>
                                     Student Corner
+                                </NavLink>
+
+                            </li>
+
+
+                            <li>
+                                <NavLink
+                                    to="/blogs"
+                                    className={({ isActive }) =>
+                                        ` text-base block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-blue-700" : "text-gray-700"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-700 lg:p-0`}>
+                                    Blogs
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/seminar-webinar"
+                                    className={({ isActive }) =>
+                                        ` text-base block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-blue-700" : "text-gray-700"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-700 lg:p-0`}>
+                                    Seminar-Webinar
                                 </NavLink>
                             </li>
                         </ul>
