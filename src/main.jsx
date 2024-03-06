@@ -8,6 +8,7 @@ import Blogs from './components/Blogs/Blogs.jsx'
 import ProjectUpload from './components/StudentCorner/ProjectUpload/ProjectUpload.jsx'
 import NotFound from './components/Not Found/NotFound.jsx'
 import SeminarWebinar from './components/Seminar-Webinar/SeminarWebinar.jsx'
+import Login from './components/Login/Login.jsx'
 
 
 
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
       <Route path='blogs' element={<Blogs/>}/>
       <Route path='student-corner' element={<ProjectUpload/>}/>
       <Route path='/seminar-webinar' element={<SeminarWebinar/>}/>
+      <Route path='/login' element={<Login/>}/>
       <Route path='*' element={<NotFound/>}/>
     </Route>
   )
