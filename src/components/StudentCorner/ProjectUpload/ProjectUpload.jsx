@@ -10,17 +10,15 @@ function ProjectUpload(params) {
 		<>
 		{/* <h3 className="text-3xl font-bold text-center mt-10">Upload Your Project</h3> */}
 
-			{/* <video autoplay muted loop id="myVideo">
-		<source src="../assets/booksBackground.mp4" type="video/mp4"/>
-		</video> */}
+			
 
-			<div className="bg-white-100 mt-6 h-full flex items-center justify-center mb-6">
+			<div className="bg-white-100 mt-6 h-full flex items-center justify-center mb-6 ">
 
 				<div className="max-w-md w-full bg-white p-8 rounded-lg shadow-2xl">
 					<form>
 
 						<div className="mb-6">
-							<label for="postContent" className="block text-gray-700 text-xl font-bold ">Upload Your Project:</label>
+							<label htmlFor="postContent" className="block text-gray-700 text-xl font-bold ">Upload Your Project:</label>
 
 							<InputField placeholder={" Title Of Project"} name={"projectName"} />
 							<InputField placeholder={"Subject Name "} name={"subjectName"} />
@@ -34,20 +32,7 @@ function ProjectUpload(params) {
 						<DropdownButton />
 						<FileDragandDrop/>
 
-						{/* Above code for drop down */}					
-						{/* <div className="mb-6">
-							<label for="fileAttachment" className="block text-gray-700 text-sm font-bold mb-2 ">Attach File:</label>
-							<div className="relative border-2 rounded-md px-4 py-3 bg-white flex items-center justify-between hover:border-blue-500 transition duration-150 ease-in-out">
-								<input type="file" id="fileAttachment" name="fileAttachment" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-								<div className="flex items-center">
-									<svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-									</svg>
-									<span className="ml-2 text-sm text-gray-600">Choose a file</span>
-								</div>
-								<span className="text-sm text-gray-500">Max file size: 5MB</span>
-							</div>
-						</div> */}
+				
 
 						<div className="flex items-center justify-between">
 							<button type="submit" className="flex justify-center items-center bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue text-white py-2 px-4 rounded-md transition duration-300 gap-2"> Upload <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" id="send" fill="#fff">
