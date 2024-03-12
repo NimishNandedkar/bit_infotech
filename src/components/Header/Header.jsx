@@ -10,13 +10,12 @@ export default function Header() {
     };
 
     return (
-        <header className="shadow sticky z-50 top-0 text-sm bg-blue-500">
-            <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5">
+        <header className="shadow-lg sticky z-50 top-0 rounded-b-2xl">
+            <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 rounded-b-2xl">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <Link to="/" className="flex items-center">
                         <img
                             src="https://bitinfotech.in/assets/uploads/media-uploader/bitinfotech-favicon-20201601120139.png"
-
                             className="mr-3 h-10 w-10"
                             alt="Logo"
                         />

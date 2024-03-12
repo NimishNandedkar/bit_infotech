@@ -1,5 +1,4 @@
 import React from 'react'
-import InputField from '../StudentCorner/ProjectUpload/InputField'
 import { Link } from 'react-router-dom'
 
 
@@ -8,7 +7,7 @@ function Login() {
         <>
             <div class="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-5 ">
                 <div class="p-8 xs:p-0 mx-auto md:w-full md:max-w-md">
-                    <div class="transition-shadow duration-500 ease-in-out bg-white shadow-md hover:shadow-2xl w-full rounded-lg ">
+                    <div class="transition-shadow duration-500 ease-in-out bg-white shadow-md hover:shadow-2xl  w-full rounded-lg ">
                         <div class="px-5 pt-12 pb-5">
 
                             <input type="text" placeholder='username' class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
