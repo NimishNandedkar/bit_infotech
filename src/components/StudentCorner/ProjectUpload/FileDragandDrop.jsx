@@ -42,7 +42,7 @@ function FileDragandDrop() {
 
   return (
     <div className={`bg-white-100 flex items-center justify-center p-3 ${isDragging ? 'border-blue-500 border-2' : ''}`}>
-      <div className="w-full max-w-md p-9 bg-white rounded-lg shadow-lg">
+      <div className="w-full max-w-md p-5 bg-white rounded-lg shadow-lg">
         <h1 className="text-center text-2xl sm:text-2xl font-semibold mb-4 text-gray-800">File Drop and Upload</h1>
         <div
           className="bg-gray-100 p-8 text-center rounded-lg border-dashed border-2 border-gray-300 hover:border-blue-500 transition duration-300 ease-in-out transform hover:scale-105 hover:shadow-md"
@@ -60,9 +60,9 @@ function FileDragandDrop() {
           </label>
           <input type="file" id="fileInput" className="hidden" multiple onChange={handleFileInputChange} />
         </div>
-        <div className="mt-6 text-center" id="fileList">
+        <div className="mt-6 text-center text-wrap" id="fileList">
           {files.map((file, index) => (
-            <div key={index}>{`${file.name} (${formatBytes(file.size)})`}</div>
+            <div   key={index}>{`${file.name} (${formatBytes(file.size)})`}</div>
           ))}
         </div>
       </div>
