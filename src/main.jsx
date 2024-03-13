@@ -21,8 +21,11 @@ const router = createBrowserRouter(
       <Route path='' element={<Home />}/>
       <Route path='blogs' element={<Blogs/>}/>
       <Route path='student-corner' element={<ProjectUpload/>}/>
-      <Route path='/seminar-webinar' element={<SeminarWebinar/>}/>
-      <Route path='/login' element={<Login/>}/>
+      <Route path='seminar-webinar' element={<SeminarWebinar/>}/>
+      <Route path='login' element={<Login/>}>
+        
+      </Route>
+      <Route path='hello' element={<h1>Hello World!</h1>}/>
       <Route path='*' element={<NotFound/>}/>
     </Route>
   )

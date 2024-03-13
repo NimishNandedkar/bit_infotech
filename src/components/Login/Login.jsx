@@ -22,21 +22,22 @@ function Login() {
                             </div>
                         </div>
                         <div className='font-normal text-xs rounded-lg text-center text-gray-500' >
-                           <span class="inline-block ml-1 mb">Or Sign-up using</span>
+                            <span class="inline-block ml-1 mb">Or Sign-up using</span>
                         </div>
                         <div class="p-5">
                             <div class="grid grid-cols-2 gap-1">
 
+                              
                                 <Link
                                     to={'*'}
                                     type="button"
-                                    class="transition-colors duration-1000 ease-in-out border border-gray-200 text-gray-500 w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md hover:text-white hover:bg-blue-500 font-normal text-center inline-block">
+                                    class="transition-colors duration-400 ease-in-out border border-gray-200 text-gray-500 w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md hover:text-white hover:bg-blue-500 font-normal text-center inline-block">
                                     Google
                                 </Link>
                                 <Link
                                     to={'*'}
                                     type="button"
-                                    class="transition-colors duration-1000 ease-in-out border border-gray-200 text-gray-500 w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md hover:text-white hover:bg-blue-500 font-normal text-center inline-block">
+                                    class="transition-colors duration-400 ease-in-out border border-gray-200 text-gray-500 w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md hover:text-white hover:bg-blue-500 font-normal text-center inline-block">
                                     Github
                                 </Link>
 
@@ -61,7 +62,7 @@ function Login() {
                             <div class="text-center sm:text-left whitespace-nowrap">
                                 <Link to={'/'} class="transition duration-200 mx-0 px-3 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-200 focus:outline-none focus:bg-gray-300 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 inline-block align-text-top">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 20l-7-7m0 0l7-7m-7 7h18" />
                                     </svg>
                                     <span class="inline-block ml-1 mb">Back to your-app.com</span>
                                 </Link>
