@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-const DropdownButton = () => {
+const DropdownButton = ({ dropDownContent  , dropDownInitialValue}) => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("Select Courses");
+  const [selectedOption, setSelectedOption] = useState(dropDownInitialValue);
 
 
   const toggleDropdown = () => {
@@ -18,8 +18,9 @@ const DropdownButton = () => {
     setDropdownVisible(false);
 
   };
-
-  const courses = ["Math", "Science", "History", "English"]; // Replace with data from backend
+  console.log(dropDownContent);
+  // const courses = ["Math", "Science", "History", "English"]; // Replace with data from backend
+  const courses =  dropDownContent;
 
   return (
     <div className="relative inline-block w-full">

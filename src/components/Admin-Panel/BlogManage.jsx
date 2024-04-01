@@ -1,11 +1,53 @@
-// components/Blog.js
-import React from 'react';
+import React, { useState } from 'react';
 
 const BlogManage = () => {
+  const [blogs, setBlogs] = useState([
+    { id: 1, blog: 'Blog 1' },
+    { id: 2, blog: 'Blog 2' },
+    { id: 3, blog: 'Blog 3' },
+    { id: 4, blog: 'Blog 4' },
+    { id: 5, blog: 'Blog 5' },
+  ]);
+
+  const handleEdit = (id) => {
+    console.log('Edit blog with id:', id);
+    // Implement edit functionality here
+  };
+
+  const handleDelete = (id) => {
+    console.log('Delete blog with id:', id);
+    // Implement delete functionality here
+
+    // Filter out the blog with the given id
+    const updatedBlogs = blogs.filter(blog => blog.id !== id);
+    // Update the state with the filtered list
+    setBlogs(updatedBlogs);
+    console.log('Deleted blog with id:', id);
+  };
+
   return (
-    <div className="bg-white p-4 rounded shadow">
-      <h2 className="text-2xl font-bold mb-4">Blog manage</h2>
-      {/* Your blog component content here */}
+    <div className="w-2/3 mx-auto">
+      <div className="bg-white shadow-md rounded my-6">
+        <table className="text-left w-full border-collapse">
+          <thead>
+            <tr>
+              <th className="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">City</th>
+              <th className="py-4 px-6 bg-grey-lightest font-bold uppercase text-sm text-grey-dark border-b border-grey-light">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {blogs.map(blogs => (
+              <tr key={blogs.id} className="hover:bg-sky-200">
+                <td className="py-4 px-6 border-b border-grey-light font-bold">{blogs.blog}</td>
+                <td className="py-4 px-6 border-b border-grey-light">
+                  <button onClick={() => handleEdit(blogs.id)} className="text-grey-lighter font-bold py-1 px-3 rounded text-sm  hover:bg-green-400">Edit</button>
+                  <button onClick={() => handleDelete(blogs.id)} className="text-grey-lighter font-bold py-1 px-3 rounded text-sm bg-blue hover:bg-red-400">Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

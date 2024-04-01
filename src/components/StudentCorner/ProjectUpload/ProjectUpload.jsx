@@ -5,7 +5,8 @@ import InputField from './InputField.jsx';
 import FileDragandDrop from './FileDragandDrop.jsx';
 
 function ProjectUpload(params) {
-	
+	const  courses = ["Web Developemnt ", "Artificial Intelligence", "Tally Prime Gst ", "Digital Marketing "]; //DropDown content
+
 	return (
 		<>
 		{/* <h3 className="text-3xl font-bold text-center mt-10">Upload Your Project</h3> */}
@@ -29,7 +30,7 @@ function ProjectUpload(params) {
 
 						{/* Below code for drop down */}
 
-						<DropdownButton />
+						<DropdownButton  dropDownContent={courses } dropDownInitialValue="Select Courses" />
 						<FileDragandDrop/>
 
 				
