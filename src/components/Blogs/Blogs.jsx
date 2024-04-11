@@ -7,7 +7,7 @@ function Blogs() {
 
   return (
     <>
-      <div className='container mx-auto my-4 px-4 rounded-lg'>
+      <div className='container mx-auto my-4 px-10 rounded-lg'>
         <h1 className='text-5xl font-bold my-4'>Blogs</h1>
         <div className='flex-col'>
           <Card className='rounded-xl'>

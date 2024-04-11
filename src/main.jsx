@@ -12,6 +12,7 @@ import Login from './components/Login/Login.jsx'
 import Signup from './components/Sign-up/Signup.jsx'
 import Events from './components/Events/Events.jsx'
 import Cards from './components/Blogs/Cards/Cards.jsx'
+import AdminPanel from './components/Admin-Panel/AdminPanel.jsx'
 
 
 
@@ -28,7 +29,7 @@ const router = createBrowserRouter(
       <Route path='events' element={<Events />} />
       <Route path='login' element={<Login />} />
       <Route path='signup' element={<Signup />} />
-      <Route path='hello' element={<h1>Hello World!</h1>} />
+      <Route path='/admin/*' element={<AdminPanel/>} />
       <Route path='*' element={<NotFound />} />
     </Route>
   ))
