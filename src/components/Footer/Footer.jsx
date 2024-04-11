@@ -38,7 +38,7 @@ export default function Footer() {
                             <ul className="text-gray-500 font-medium">
                                 <li className="mb-4">
                                     <a
-                                        href="https://github.com/hiteshchoudhary"
+                                        href="#"
                                         className="hover:underline hover:text-blue-700"
                                         target="_blank"
                                         rel="noreferrer"
@@ -57,7 +57,7 @@ export default function Footer() {
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Legal</h2>
                             <ul className="text-gray-500 font-medium">
                                 <li className="mb-4">
-                                    <Link to="#" className="hover:underline hover:text-blue-700">
+                                    <Link to="https://bitinfotech.in/p/privacy-policy" className="hover:underline hover:text-blue-700">
                                         Privacy Policy
                                     </Link>
                                 </li>
