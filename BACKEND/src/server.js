@@ -1,22 +1,25 @@
-import express from "express";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
+import dotenv from "dotenv";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename)
+import connectDB from "./db/dbConnect.js";
+import { app } from "./app.js";
 
-const app = express();
 
-const PORT = process.env.PORT || 3000;
+dotenv.config({
+    path: "./env"
+}); //this is used to load the environment variables from the .env file
 
-app.get("/", (req, res) => {
-    res.sendFile(`${__dirname}/index.html`);
-});
+const port = process.env.PORT || 8000;
 
-app.listen(PORT, (error) => {
-    if (!error) {
-        console.log("success server is running on " + PORT);
-    } else {
-        console.log(error.message);
-    }
+connectDB().then(() => {
+    
+    app.on("error", (error) => {
+        console.log("Error in express server ", error);
+        throw error;
+    });
+
+    app.listen(port, () => {
+        console.log(`server is running on ---> http://localhost:${port}`)
+    })
+}).catch((error) => {
+    console.error("Mongo DB  connection  failed !!! : ", error);
 });
