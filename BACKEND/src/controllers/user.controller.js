@@ -1,4 +1,6 @@
+import { startSession } from "mongoose";
 import { User } from "../models/user.model.js";
+import { redirect } from "react-router-dom";
 
 
 const registerUser = async (req, res) => {
@@ -50,4 +52,64 @@ const registerUser = async (req, res) => {
     }
 }
 
-export { registerUser };
+const loginUser = async (req, res) => {
+    try {
+
+        const { email, password } = req.body;
+
+        if ([email, password].some((field) => field?.trim() === "")) {
+            return res.status(400).json({
+                status: "failed",
+                message: "Please provide all the required fields",
+            });
+        }
+
+        const user = await User.findOne({
+            email,
+            password,
+        })
+
+        if (!user) {
+            return res.status(400).json({
+                status: "failed",
+                message: "Invalid credentials",
+            });
+        }
+        
+        //store user id in cookie
+        const userId = user._id;
+
+       
+        return res
+        .cookie("userid", userId)
+        .status(200)
+        .json({
+            status: "success",
+            data: {
+                user,
+            },
+            message: "User logged in successfully",
+        });
+
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const logoutUser = async (req, res) => {
+    try {
+        //remove user id from session
+
+        return res
+        .clearCookie('userid')
+        .status(200).json({
+            status: "success",
+            message: "User logged out successfully",
+        });
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export { registerUser, loginUser, logoutUser};

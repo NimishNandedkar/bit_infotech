@@ -1,13 +1,23 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import getCurrentUser from '../../../BACKEND/src/middelwares/auth.middelware';
+import { useSelector } from 'react-redux';
+import Logoutbtn from './Logoutbtn';
+
 
 
 export default function Header() {
+
+    const authStatus = useSelector(state => state.auth.status); // Get the auth status from the Redux store
+
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const toggleMobileMenu = () => {
         setMobileMenuOpen(!mobileMenuOpen);
     };
+    
+    
 
 
 
@@ -23,19 +33,26 @@ export default function Header() {
                         /><span className='text-gray-800 font-bold'>Bit-infotech</span>
                     </Link>
                     <div className="flex items-center lg:order-2">
-                        <Link
-
-                            to="/login"
-                            className="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
-                        >
-                            Log in
-                        </Link>
-                        <Link
-                            to="/signup"
-                            className="text-white bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
-                        >
-                            Sign up
-                        </Link>
+                        {authStatus ? (
+                            // If logged in, render logout button
+                                <Logoutbtn />  
+                        ) : (
+                            // If not logged in, render login and sign up buttons
+                            <>
+                                <Link
+                                    to="/login"
+                                    className="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+                                >
+                                    Log in
+                                </Link>
+                                <Link
+                                    to="/signup"
+                                    className="text-white bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+                                >
+                                    Sign up
+                                </Link>
+                            </>
+                        )}
                     </div>
                     <div className="lg:hidden">
                         <button
@@ -73,6 +90,8 @@ export default function Header() {
                                 </NavLink>
 
                             </li>
+                            {authStatus ? (
+                                <>
                             <li>
                                 <NavLink
                                     to="/student-corner"
@@ -83,8 +102,6 @@ export default function Header() {
                                 </NavLink>
 
                             </li>
-
-                            
                             <li>
                                 <NavLink
                                     to="/blogs"
@@ -115,7 +132,9 @@ export default function Header() {
                                 </NavLink>
 
                             </li>
-                        </ul>
+                            </>
+                                ) : null}
+                            </ul>
                     </div>
                     <div
                         className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
@@ -130,6 +149,8 @@ export default function Header() {
                                     Home
                                 </NavLink>
                             </li>
+                            {authStatus ? (
+                                <>
 
                             <li className="relative">
                                 <NavLink
@@ -168,6 +189,8 @@ export default function Header() {
                                     Events
                                 </NavLink>
                             </li>
+                            </>
+                            ) : null}
                         </ul>
                     </div>
                 </div>

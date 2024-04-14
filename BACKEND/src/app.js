@@ -7,7 +7,6 @@ import cors from 'cors';
 const app = express();
 
 app.use(cors({
-
     origin: process.env.CORS_ORIGIN,
     credentials: true,      // credentials are set to true to allow cookies to be sent with the requests
 }))
@@ -21,6 +20,7 @@ app.use(express.urlencoded({
 }));
 
 app.use(express.static('public')); //this is used to serve static files like images, css, js files
+
 app.use(cookieParser()); // this is used the parse the cookies that are sent with the request
 
 
