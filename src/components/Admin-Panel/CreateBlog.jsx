@@ -35,19 +35,7 @@ function CreateBlog() {
           <input type="text" id="title" placeholder="Write your title here" className="block w-full px-4 py-2 rounded-md bg-gray-100 focus:outline-none focus:border-blue-500" />
         </div>
         
-        {/* <div className="mb-6">
-          <label htmlFor="fileAttachment" className="block text-gray-700 text-sm font-bold mb-2">Attach Blog Header Image :</label>
-          <div className="relative border-2 rounded-md px-4 py-3 bg-white flex items-center justify-between hover:border-blue-500 transition duration-150 ease-in-out">
-            <input type="file" id="fileAttachment" name="fileAttachment" className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
-            <div className="flex items-center">
-              <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-              </svg>
-              <span className="ml-2 text-sm text-gray-600">Choose a file</span>
-            </div>
-            <span className="text-sm text-gray-500">Max file size: 5MB</span>
-          </div>
-        </div> */}
+
 
 
 <div className="mb-6">
@@ -90,7 +78,7 @@ function CreateBlog() {
               <path d="M3.4 20.4l17.45-7.48c.81-.35.81-1.49 0-1.84L3.4 3.6c-.66-.29-1.39.2-1.39.91L2 9.12c0 .5.37.93.87.99L17 12 2.87 13.88c-.5.07-.87.5-.87 1l.01 4.61c0 .71.73 1.2 1.39.91z"></path>
             </svg>
           </button>
-          <span className="text-gray-500 text-sm">Max 280 characters</span>
+         
         </div>
       </form>
     </div>
