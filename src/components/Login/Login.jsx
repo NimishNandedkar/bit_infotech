@@ -58,6 +58,7 @@ function Login() {
         <>
             <div class="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-5 ">
                 <div class="p-8 xs:p-0 mx-auto md:w-full md:max-w-md">
+                    <h1 class="font-bold text-center text-2xl mb-5">Login</h1>
                     <div class="transition-shadow duration-500 ease-in-out bg-white shadow-md hover:shadow-2xl  w-full rounded-lg ">
                         <div class="px-5 pt-12 pb-5">
 
@@ -73,7 +74,7 @@ function Login() {
                             </div>
                         </div>
                         <div className='font-normal text-xs rounded-lg text-center text-gray-500' >
-                            <span class="inline-block ml-1 mb">Or Sign-up using</span>
+                            <span class="inline-block ml-1 mb">Or Login using</span>
                         </div>
                         <div class="p-5">
                             <div class="grid grid-cols-2 gap-1">
