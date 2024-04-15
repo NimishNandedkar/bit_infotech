@@ -1,6 +1,6 @@
-import { startSession } from "mongoose";
+
 import { User } from "../models/user.model.js";
-import { redirect } from "react-router-dom";
+
 
 
 const registerUser = async (req, res) => {

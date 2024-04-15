@@ -12,7 +12,7 @@ app.use(cors({
 }))
 
 app.use(express.json({
-    limit: "100kb", // limit the body of the request to 16kb
+    limit: "1000kb", // limit the body of the request to 16kb
 }));
 
 app.use(express.urlencoded({
