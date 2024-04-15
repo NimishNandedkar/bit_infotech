@@ -13,6 +13,8 @@ import Signup from './components/Sign-up/Signup.jsx'
 import Events from './components/Events/Events.jsx'
 import Cards from './components/Blogs/Cards/Cards.jsx'
 import AdminPanel from './components/Admin-Panel/AdminPanel.jsx'
+import { Provider } from 'react-redux'
+import store from './store/store.js'
 
 
 
@@ -29,13 +31,14 @@ const router = createBrowserRouter(
       <Route path='events' element={<Events />} />
       <Route path='login' element={<Login />} />
       <Route path='signup' element={<Signup />} />
+      <Route path='logout' element={<Login />} />
       <Route path='/admin/*' element={<AdminPanel/>} />
       <Route path='*' element={<NotFound />} />
     </Route>
   ))
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  <Provider store={store}>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </Provider>
 )
