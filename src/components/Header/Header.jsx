@@ -1,18 +1,29 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import getCurrentUser from '../../../BACKEND/src/middelwares/auth.middelware';
+import { useSelector } from 'react-redux';
+import Logoutbtn from './Logoutbtn';
+
 
 
 export default function Header() {
+
+    const authStatus = useSelector(state => state.auth.status); // Get the auth status from the Redux store
+
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     const toggleMobileMenu = () => {
         setMobileMenuOpen(!mobileMenuOpen);
     };
+    
+    
 
 
 
     return (
         <header className="shadow-lg sticky z-50 top-0 rounded-b-2xl">
+            <nav className="bg-white border-gray-200 px-2 lg:px-4 py-2.5 rounded-b-2xl">
             <nav className="bg-white border-gray-200 px-2 lg:px-4 py-2.5 rounded-b-2xl">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <Link to="/" className="flex items-center">
@@ -20,6 +31,7 @@ export default function Header() {
                             src="https://bitinfotech.in/assets/uploads/media-uploader/bitinfotech-favicon-20201601120139.png"
                             className="mr-3 h-10 w-10"
                             alt="Logo"
+                        /><span className='text-gray-800 font-bold'>Bit-infotech</span>
                         /><span className='text-gray-800 font-bold'>Bit-infotech</span>
                     </Link>
                     <div className="flex items-center lg:order-2">
@@ -54,6 +66,9 @@ export default function Header() {
                                     strokeLinejoin='round'
                                     strokeWidth="3"
                                     d="M4 6h16 M4 12h16 M4 18h16"
+                                    strokeLinejoin='round'
+                                    strokeWidth="3"
+                                    d="M4 6h16 M4 12h16 M4 18h16"
                                 />
                             </svg>
                         </button>
@@ -67,29 +82,29 @@ export default function Header() {
                                 <NavLink
                                     to="/"
                                     onClick={toggleMobileMenu}
-                                    className="  font-semibold text-black hover:text-blue-700"
+                                    className="font-semibold text-black hover:text-blue-700"
                                 >
                                     Home
                                 </NavLink>
 
                             </li>
+                            {authStatus ? (
+                                <>
                             <li>
                                 <NavLink
                                     to="/student-corner"
                                     onClick={toggleMobileMenu}
-                                    className="  font-semibold text-black hover:text-blue-700"
+                                    className="font-semibold text-black hover:text-blue-700"
                                 >
                                     Student Corner
                                 </NavLink>
 
                             </li>
-
-                            
                             <li>
                                 <NavLink
                                     to="/blogs"
                                     onClick={toggleMobileMenu}
-                                    className="  font-semibold text-black hover:text-blue-700"
+                                    className="font-semibold text-black hover:text-blue-700"
                                 >
                                     Blogs
                                 </NavLink>
@@ -99,13 +114,25 @@ export default function Header() {
                                 <NavLink
                                     to="/seminar-webinar"
                                     onClick={toggleMobileMenu}
-                                    className="  font-semibold text-black hover:text-blue-700"
+                                    className="font-semibold text-black hover:text-blue-700"
                                 >
                                     Seminar-Webinar
                                 </NavLink>
 
                             </li>
-                        </ul>
+                            <li>
+                                <NavLink
+                                    to="/events"
+                                    onClick={toggleMobileMenu}
+                                    className="font-semibold text-black hover:text-blue-700"
+                                >
+                                    Events
+                                </NavLink>
+
+                            </li>
+                            </>
+                                ) : null}
+                            </ul>
                     </div>
                     <div
                         className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
@@ -120,6 +147,8 @@ export default function Header() {
                                     Home
                                 </NavLink>
                             </li>
+                            {authStatus ? (
+                                <>
 
                             <li className="relative">
                                 <NavLink
@@ -150,6 +179,16 @@ export default function Header() {
                                     Seminar-Webinar
                                 </NavLink>
                             </li>
+                            <li>
+                                <NavLink
+                                    to="/events"
+                                    className={({ isActive }) =>
+                                        ` text-base block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-blue-700" : "text-gray-700"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-blue-700 lg:p-0`}>
+                                    Events
+                                </NavLink>
+                            </li>
+                            </>
+                            ) : null}
                         </ul>
                     </div>
                 </div>

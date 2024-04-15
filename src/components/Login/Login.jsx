@@ -1,8 +1,59 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { login as authLogin } from '../../store/auth.js'
+import { useDispatch } from 'react-redux';
 
+import axios from 'axios';
 
 function Login() {
+    const dispatch = useDispatch();
+    const navgate = useNavigate();
+
+    const [LoginSuccess, setLoginSuccess] = useState(false);  // This is optional, you can use it to show a success message to the user
+    const [LoginError, setLoginError] = useState(false);  // This is optional, you can use it to show an error message to the user
+
+    const [error, setError] = useState('');  // This is optional, you can use it to show an error message to the user
+
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/user/login`, formData);
+
+            // Handle success, maybe redirect the user or show a success message
+            console.log(response.data);
+            setLoginSuccess(true);
+            dispatch(authLogin({ userData: response.data }));
+
+            //set the user_id data in the cookies to be used in the getCurrentUser middleware 
+            document.cookie = `userid=${response.data.data.user._id}; max-age=3600; path=http://localhost:3000`;
+
+            // Redirect the user to the home page after 1000ms
+            setTimeout(() => {
+                navgate('/');
+            }, 1000);
+
+        } catch (error) {
+            console.error('Error:', error.message);
+            setLoginError(true);
+            setError(error.message);
+            // Handle error, maybe show an error message to the user
+        }
+    };
+
     return (
         <>
             <div class="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-5 ">
@@ -50,11 +101,23 @@ function Login() {
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 inline-block align-text-top">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
                                         </svg>
-                                        <span class="inline-block ml-1">Forgot Password</span>
                                     </button>
                                 </div>
-
                             </div>
+                        </div>
+                    </form>
+
+                    <div className='font-normal text-xs rounded-lg text-center text-gray-500' >
+                        <span className="inline-block ml-1 mb">Or Login using</span>
+                    </div>
+                    <div className="p-5">
+                        <div className="grid grid-cols-2 gap-1">
+                            <Link to={'*'} className="transition-colors duration-400 ease-in-out border border-gray-200 text-gray-500 w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md hover:text-white hover:bg-blue-500 font-normal text-center inline-block">
+                                Google
+                            </Link>
+                            <Link to={'*'} className="transition-colors duration-400 ease-in-out border border-gray-200 text-gray-500 w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md hover:text-white hover:bg-blue-500 font-normal text-center inline-block">
+                                Github
+                            </Link>
                         </div>
                     </div>
                     <div class="py-5">
@@ -64,8 +127,8 @@ function Login() {
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-4 h-4 inline-block align-text-top">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M10 20l-7-7m0 0l7-7m-7 7h18" />
                                     </svg>
-                                    <span class="inline-block ml-1 mb">Back to your-app.com</span>
-                                </Link>
+                                    <span className="inline-block ml-1">Forgot Password</span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -75,4 +138,4 @@ function Login() {
     )
 }
 
-export default Login
+export default Login;

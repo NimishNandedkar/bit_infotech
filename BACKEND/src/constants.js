@@ -1,0 +1,1 @@
+export const DB_NAME = "bit_project_db"

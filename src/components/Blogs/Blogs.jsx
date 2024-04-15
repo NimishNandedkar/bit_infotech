@@ -1,10 +1,13 @@
 import { Card, CardBody } from '@material-tailwind/react'
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 
 function Blogs() {
-  const imageUrl = "https://images.unsplash.com/photo-1682695795255-b236b1f1267d?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+
   return (
     <>
+      <div className='container mx-auto my-4 px-10 rounded-lg'>
       <div className='container mx-auto my-4 px-10 rounded-lg'>
         <h1 className='text-5xl font-bold my-4'>Blogs</h1>
         <Card className='rounded-xl'>

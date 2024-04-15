@@ -15,7 +15,6 @@ import AdminPanel from './components/Admin-Panel/AdminPanel.jsx'
 
 // ***********************************************
 
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
@@ -36,9 +35,7 @@ const router = createBrowserRouter(
 
 
     </Route>
-  )
-)
-
+  ))
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
