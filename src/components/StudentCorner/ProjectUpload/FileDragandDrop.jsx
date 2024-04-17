@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function FileDragandDrop() {
+function FileDragandDrop({ onFilesChange }) {
   const [isDragging, setIsDragging] = useState(false);
   const [files, setFiles] = useState([]);
 
@@ -28,6 +28,7 @@ function FileDragandDrop() {
 
   const handleFiles = (files) => {
     setFiles(files);
+    onFilesChange(files); // Pass selected files back to parent component
   };
 
   const formatBytes = (bytes) => {
@@ -56,13 +57,13 @@ function FileDragandDrop() {
             </svg>
             <span className="text-gray-600">Drag and drop your files here</span>
             <span className="text-gray-500 text-sm">(or click to select)</span>
-            <span className="text-gray-500 text-sm">supported files pdf,png,jpg.</span>
+            <span className="text-gray-500 text-sm">supported files pdf, png, jpg.</span>
           </label>
           <input type="file" id="fileInput" className="hidden" multiple onChange={handleFileInputChange} />
         </div>
         <div className="mt-6 text-center text-wrap" id="fileList">
           {files.map((file, index) => (
-            <div   key={index}>{`${file.name} (${formatBytes(file.size)})`}</div>
+            <div key={index}>{`${file.name} (${formatBytes(file.size)})`}</div>
           ))}
         </div>
       </div>

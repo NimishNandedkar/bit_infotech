@@ -18,6 +18,6 @@ router.route("/logout").post(
     getCurrentUser, logoutUser )
 
 router.route("/student-corner").post( 
-   upload.single('file'), uploadFile )
+ getCurrentUser, upload.single('file'), uploadFile )
 
 export default router;

@@ -1,8 +1,18 @@
 import axios from 'axios';
 import React, { useState} from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, Navigate } from 'react-router-dom';
 
 function Signup() {
+
+    const user = useSelector((state) => state.auth.status);
+    
+
+    if (user) {
+        // alert("Please login to upload project");
+        return <Navigate to="/" />;
+    }
+
     const [SignUpSuccess, setSignUpSuccess] = useState(false);  // This is optional, you can use it to show a success message to the user
     const [SignUpError, setSignUpError] = useState(false);  // This is optional, you can use it to show an error message to the user
     const [error, setError] = useState('');  // This is optional, you can use it to show an error message to the user

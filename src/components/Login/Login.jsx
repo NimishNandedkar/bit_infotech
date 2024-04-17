@@ -1,13 +1,24 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { login as authLogin } from '../../store/auth.js'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import axios from 'axios';
 
 function Login() {
+    const user = useSelector((state) => state.auth.status);
     const dispatch = useDispatch();
     const navgate = useNavigate();
+
+    if (user) {
+        // If user is logged in, navigate to home page
+        // Redirect the user to the home page after 1000ms
+        setTimeout(() => {
+            navgate('/');
+            alert("You are already logged in")
+        }, 500);
+    }
+
 
     const [LoginSuccess, setLoginSuccess] = useState(false);  // This is optional, you can use it to show a success message to the user
     const [LoginError, setLoginError] = useState(false);  // This is optional, you can use it to show an error message to the user
@@ -36,10 +47,10 @@ function Login() {
             // Handle success, maybe redirect the user or show a success message
             console.log(response.data);
             setLoginSuccess(true);
-            dispatch(authLogin({ userData: response.data }));
+            dispatch(authLogin({ userData: response.data.data.token}));
 
             //set the user_id data in the cookies to be used in the getCurrentUser middleware 
-            document.cookie = `userid=${response.data.data.user._id}; max-age=3600; path=http://localhost:3000`;
+            document.cookie = `token=${response.data.data.token}; max-age=3600; path=/`;
 
             // Redirect the user to the home page after 1000ms
             setTimeout(() => {

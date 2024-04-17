@@ -1,9 +1,18 @@
 import { Card, CardBody } from '@material-tailwind/react'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { Link, Navigate } from 'react-router-dom'
 
 
 function Blogs() {
+  const user = useSelector((state) => state.auth.status);
+    
+
+  if (!user) {
+      // alert("Please login to upload project");
+      return <Navigate to="/login" />;
+  }
+
 
   return (
     <>

@@ -9,6 +9,7 @@ cloudinary.config({
 });
 
 const uploadCloudinary = async (file) => {
+    
     try {
         if (!file) {
             console.log("No file to upload");
@@ -16,13 +17,14 @@ const uploadCloudinary = async (file) => {
         }
         const result = await cloudinary.uploader.upload(file, {
             resource_type: "auto",
-            folder: "Bit_infotech",
+            folder: "Bit_infotech/StudentCorner/Projects",
     });
     
         fs.unlinkSync(file);
         console.log("File uploaded to Cloudinary");
         console.log(result.url);
         return result;
+        
     } catch (error) {
         fs.unlinkSync(file);
         console.log(error + "File not uploaded to Cloudinary ");

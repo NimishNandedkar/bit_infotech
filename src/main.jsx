@@ -15,16 +15,20 @@ import Cards from './components/Blogs/Cards/Cards.jsx'
 import AdminPanel from './components/Admin-Panel/AdminPanel.jsx'
 import { Provider } from 'react-redux'
 import store from './store/store.js'
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistStore } from 'redux-persist'
 
 
 
 // ***********************************************
 
+let persistor = persistStore(store);
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
       <Route path='' element={<Home />} />
-      <Route path='blogs/*' element={<Blogs />}/>
+      <Route path='blogs/*' element={<Blogs />} />
       <Route path='blogs/card' element={<Cards />} />
       <Route path='student-corner' element={<ProjectUpload />} />
       <Route path='seminar-webinar' element={<SeminarWebinar />} />
@@ -32,13 +36,15 @@ const router = createBrowserRouter(
       <Route path='login' element={<Login />} />
       <Route path='signup' element={<Signup />} />
       <Route path='logout' element={<Login />} />
-      <Route path='/admin/*' element={<AdminPanel/>} />
+      <Route path='/admin/*' element={<AdminPanel />} />
       <Route path='*' element={<NotFound />} />
     </Route>
   ))
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <RouterProvider router={router} />
+    <PersistGate persistor={persistor}>
+      <RouterProvider router={router} />
+    </PersistGate>
   </Provider>
 )
