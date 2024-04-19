@@ -12,7 +12,7 @@ router.route("/register").post(
 )
 
 router.route("/login").post(
-    isAdmin, loginUser
+     loginUser
 )
 
 router.route("/logout").post(
