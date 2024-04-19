@@ -15,16 +15,6 @@ const EditBlog = ({isModalOpen , setIsModalOpen , selectedBlogId , setSelectedBl
  
   const handleEditBlog = async(value)=>{
 
-    // axios.get(`${import.meta.env.VITE_API_BASE_URL}/blogs/blogDetail/${selectedBlogId}`)
-    //   .then(response => {
-    //     setBlogs(response.data.data);
-    //     // setLoading(false);
-    //   })
-    //   .catch(error => {
-    //     console.error('Error fetching blogs:', error);
-    //     // setLoading(false);
-    //   });
-
 
     if (value && selectedBlogId) {
       try {
