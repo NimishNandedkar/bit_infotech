@@ -1,6 +1,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+
 import session from 'express-session';
 // import { Store } from 'express-session';
 import jwt from 'jsonwebtoken';
@@ -44,12 +45,19 @@ app.use(session({        // this is used to create a session middleware
 // routes import
 
 import userRouter from './routes/user.routes.js';
+import blogRouter from './routes/blog.routes.js';
 import { User } from './models/user.model.js';
 
 
 // routes declaration
 
 app.use('/api/v1/user', userRouter);
+// app.use('/api/v1/createblog', blogRouter);
+// app.use('/api/v1/blogDetail', blogRouter);
+// app.use('/api/v1/deleteBlog', blogRouter);
+
+app.use('/api/v1/blogs', blogRouter)
+
 
 app.get('/', async (req, res) => {
    try {

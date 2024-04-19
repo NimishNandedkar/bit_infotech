@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import react from '@vitejs/plugin-react'
 
+
 // https://vitejs.dev/config/
 export default defineConfig({
   server: {
@@ -11,6 +12,7 @@ export default defineConfig({
 
     },
   },
-  plugins: [react(), nodePolyfills()], // bhai ye nodePolyfills kya hai? 
-  // nodePolyfills() is a Vite plugin that provides Node.js polyfills for the browser.
+  plugins: [react(), nodePolyfills()],
+  // plugins:[react()]
+  
 })
