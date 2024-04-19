@@ -37,7 +37,7 @@ export default function Home() {
     }, []);
 
     return (
-        <div className="mx-auto w-full max-w-7xl">
+        <div className="mx-auto w-full max-w-7xl  bg-gray-200">
             {/* adding background video */}
             <video autoPlay loop muted className="w-full h-screen object-cover">
                 <source src='src/assets/booksBackground.mp4' type="video/mp4" />

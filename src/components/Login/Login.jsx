@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { login as authLogin } from '../../store/auth.js'
 import { useDispatch, useSelector } from 'react-redux';
+import Alert from '../Alert/Alert.jsx';
 
 import axios from 'axios';
 
@@ -10,25 +11,33 @@ function Login() {
     const dispatch = useDispatch();
     const navgate = useNavigate();
 
-    if (user) {
-        // If user is logged in, navigate to home page
-        // Redirect the user to the home page after 1000ms
-        setTimeout(() => {
-            navgate('/');
-            alert("You are already logged in")
-        }, 500);
-    }
+    
 
+    const [open, setOpen] = useState(false);
+    const [severity, setSeverity] = useState('success');
+    const [message, setMessage] = useState('');
 
     const [LoginSuccess, setLoginSuccess] = useState(false);  // This is optional, you can use it to show a success message to the user
     const [LoginError, setLoginError] = useState(false);  // This is optional, you can use it to show an error message to the user
 
     const [error, setError] = useState('');  // This is optional, you can use it to show an error message to the user
 
+    if (user) {
+        // If user is logged in, navigate to home page
+        // Redirect the user to the home page after 1000ms
+        setTimeout(() => {
+            navgate('/');
+        }, 500);
+    }
+
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
+
+     const  handleClose = () => {
+        setOpen(false);
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -52,26 +61,43 @@ function Login() {
             //set the user_id data in the cookies to be used in the getCurrentUser middleware 
             document.cookie = `token=${response.data.data.token}; max-age=3600; path=/`;
 
+            //show the success message
+            setOpen(true);
+            setSeverity('success');
+            setMessage('You have successfully logged in');
+
             // Redirect the user to the home page after 1000ms
             setTimeout(() => {
                 navgate('/');
-            }, 1000);
+            }, 2000);
 
         } catch (error) {
             console.error('Error:', error.message);
             setLoginError(true);
             setError(error.message);
             // Handle error, maybe show an error message to the user
+
+              {/* optional */}
+              setOpen(true);
+              setSeverity('error');
+              setMessage('An error occurred while logging in');
+              {/* optional */}
+  
         }
+
+        
     };
 
     return (
         <>
-            <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-5 ">
+            <div className='position-relative'>
+            <Alert open={open} handleClose={handleClose} severity={severity} message={message} />
+            </div>
+            <div className="min-h-screen bg-gray-200 flex flex-col justify-center sm:py-5 ">
                 <div className="p-8 xs:p-0 mx-auto md:w-full md:max-w-md">
                     <h1 className="font-bold text-center text-2xl mb-5">Login</h1>
                       {/* optional */}
-                      {LoginSuccess && <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                      {/* {LoginSuccess && <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
                         <strong className="font-bold">Success!</strong>
                         <span className="block sm:inline">You have successfully logged in
                         <Link to={'/'} className="text-blue-500 hover:text-blue-700">Home</Link>
@@ -96,7 +122,7 @@ function Login() {
                                 <path fillRule="evenodd" clipRule="evenodd" d="M6.707 6.707a1 1 0 0 1 1.414 0L12 10.586l3.879-3.879a1 1 0 1 1 1.414 1.414L13.414 12l3.879 3.879a1 1 0 1 1-1.414 1.414L12 13.414l-3.879 3.879a1 1 0 1 1-1.414-1.414L10.586 12 6.707 8.121a1 1 0 0 1 0-1.414z"/>
                             </svg>
                         </span>
-                    </div>}
+                    </div>} */}
                     {/* optional */}
 
                     <form onSubmit={handleSubmit}>
@@ -143,6 +169,7 @@ function Login() {
                     </div>
                 </div>
             </div>
+
         </>
     )
 }

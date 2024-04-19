@@ -7,6 +7,9 @@ import jwt from "jsonwebtoken";
 const getCurrentUser = async (req, res, next) => {
     
        try {
+        
+        // const isAdmin = req.body
+        // console.log(isAdmin + "isAdmin");
          const token = req.cookies?.token || req.headers["Authorization"]?.replace("Bearer ", "");
          console.log(req.cookies?.token);
  
@@ -34,6 +37,7 @@ const getCurrentUser = async (req, res, next) => {
          console.log(decodedToken + "decodedToken");
  
          const user = await User.findById(decodedToken._id).select("-password");
+         
          console.log(user);
          
          if (!user) {

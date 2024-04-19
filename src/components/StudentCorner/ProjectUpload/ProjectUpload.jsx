@@ -1,21 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./ProjectUpload.css";
 import DropdownButton from './Dropdown';
 import InputField from './InputField.jsx';
 import FileDragandDrop from './FileDragandDrop.jsx';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Alertjsx from '../../Alert/Alert.jsx';
 
 function ProjectUpload() {
 
+    const navigate = useNavigate();
     const user = useSelector((state) => state.auth.status);
     
 
-    if (!user) {
-        // alert("Please login to upload project");
-        return <Navigate to="/login" />;
-    }
+   useEffect(() => {
+        if (!user) {
+            navigate('/login');
+        }
+    }, [user, navigate]);
+    
+   
+    const [open, setOpen] = useState(false);
+    const [severity, setSeverity] = useState('success');
+    const [message, setMessage] = useState('');
 
     const courses = ["Web Development", "Artificial Intelligence", "Tally Prime Gst", "Digital Marketing"]; // DropDown content
     const [formData, setFormData] = useState({
@@ -58,7 +66,15 @@ function ProjectUpload() {
                 formDataToSend.append('file', formData.file[0]);
                 // formDataToSend.append('subjectName', formData.subjectName);
                 // formDataToSend.append('course', formData.course);
-
+                
+                setFormData({
+                    title: "",
+                    subjectName: "",
+                    projectType: "",
+                    description: "",
+                    course: "",
+                    file: null
+                });
                 const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/user/student-corner`, formDataToSend, {
                     withCredentials: true,
                     headers: {
@@ -68,14 +84,22 @@ function ProjectUpload() {
 
                 // Handle success, maybe redirect the user or show a success message
                 if (response.status === 201) {
-                    alert("Project uploaded successfully");
+
+                    setOpen(true);
+                    setSeverity('success');
+                    setMessage('Project uploaded successfully');
                 }
                 console.log(response.data);
             } else {
                 setErrors(errors);
+                setOpen(true);
+                setSeverity('error');
+                setMessage('form is invalid, please fill all the fields');
             }
         } catch (error) {
-            console.error('Error:', error.message);
+            setOpen(true);
+            setSeverity('error');
+            setMessage('An error occurred while uploading project');
         }
     };
     // ********************************************************************
@@ -104,11 +128,15 @@ function ProjectUpload() {
         if (!data.course.trim()) {
             errors.course = "Course is required";
         }
+        if (!data.file) {
+            errors.file = "File is required";
+        }
         return errors;
     };
 
     return (
         <>
+            <Alertjsx open={open} handleClose={setOpen} severity={severity} message={message} />
             <div className="bg-white-100 mt-6 h-full flex items-center justify-center mb-6 ">
                 <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-2xl">
                     <form onSubmit={handleSubmit}>
@@ -134,6 +162,7 @@ function ProjectUpload() {
                                 setFormData({ ...formData, file: file })
                             }
                         } />
+                        {errors.file && <span className="text-red-500 text-sm">{errors.file}</span>}
                         <div className="flex items-center justify-between">
                             <button type="submit" className="flex justify-center items-center bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue text-white py-2 px-4 rounded-md transition duration-300 gap-2"> Upload
                                 <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" id="send" fill="#fff">

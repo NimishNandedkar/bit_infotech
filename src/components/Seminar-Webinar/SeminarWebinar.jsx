@@ -1,19 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import FormDialog from '../Modal';
 
 function SeminarWebinar() {
-  
+
+  const navigate = useNavigate();
   const user = useSelector((state) => state.auth.status);
-    
-  if (!user) {
-      // alert("Please login to upload project");
-      return <Navigate to="/login" />;
-  }
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/login');
+    }
+  } 
+  , [user, navigate]);
 
   return (
-    
-    <div>SeminarWebinar</div>
+    <>
+      <div className='h-screen bg-gray-200'>
+        <p className='text-5xl flex justify-center items-center'>Seminar & Webinar</p><br />
+        <div className="flex flex-col items-center justify-center">
+        <FormDialog />
+        </div>
+      </div>
+    </>
   )
 }
 

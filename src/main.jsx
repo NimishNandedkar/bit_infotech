@@ -35,7 +35,7 @@ const router = createBrowserRouter(
       <Route path='events' element={<Events />} />
       <Route path='login' element={<Login />} />
       <Route path='signup' element={<Signup />} />
-      <Route path='logout' element={<Login />} />
+      {/* <Route path='logout' element={<Login />} /> */}
       <Route path='/admin/*' element={<AdminPanel />} />
       <Route path='*' element={<NotFound />} />
     </Route>
