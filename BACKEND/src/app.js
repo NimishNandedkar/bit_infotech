@@ -4,6 +4,7 @@ import cors from 'cors';
 
 
 
+
 const app = express();
 
 app.use(cors({
@@ -12,7 +13,7 @@ app.use(cors({
 }))
 
 app.use(express.json({
-    limit: "100kb", // limit the body of the request to 16kb
+    limit: "1000kb", // limit the body of the request to 16kb
 }));
 
 app.use(express.urlencoded({
@@ -28,9 +29,16 @@ app.use(cookieParser()); // this is used the parse the cookies that are sent wit
 // routes import
 
 import userRouter from './routes/user.routes.js';
+import blogRouter from './routes/blog.routes.js';
 
 // routes declaration
 
 app.use('/api/v1/user', userRouter);
+// app.use('/api/v1/createblog', blogRouter);
+// app.use('/api/v1/blogDetail', blogRouter);
+// app.use('/api/v1/deleteBlog', blogRouter);
+
+app.use('/api/v1/blogs', blogRouter)
+
 
 export { app };
