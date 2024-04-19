@@ -8,7 +8,7 @@ function Logoutbtn() {
     const handleLogout = async () => {
         try {
             const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/user/logout`, {}, {
-                withCredentials: true // Include cookies in the request
+              withCredentials: true // Send the cookie with the request
             });
             console.log(response.data);
         } catch (error) {

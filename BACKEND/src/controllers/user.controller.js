@@ -1,7 +1,24 @@
-import { startSession } from "mongoose";
-import { User } from "../models/user.model.js";
-import { redirect } from "react-router-dom";
 
+import { User } from "../models/user.model.js";
+
+const generateToken = async (userId) => {
+    try {
+
+        const user = await User.findById(userId)
+        if (!user) {
+            return res.status(404).json({
+                status: "failed",
+                message: "User not found",
+            });
+        }
+
+        const token = user.generateJWTToken();
+        return token;
+
+    } catch (error) {
+        console.log(error + "error in generateToken");
+    }
+}
 
 const registerUser = async (req, res) => {
     try {
@@ -13,10 +30,11 @@ const registerUser = async (req, res) => {
             return res.status(400).json({
                 status: "failed",
                 message: "Please provide all the required fields",
-            }); 
+            });
         }
 
-        const userExists = await User.findOne({ email
+        const userExists = await User.findOne({
+            email
         });
 
         if (userExists) {
@@ -32,23 +50,26 @@ const registerUser = async (req, res) => {
             password,
         });
 
-        if (!user) {
-            return res.status(400).json({
+        const createduser = await User.findById(user._id).select(
+            "-password" // exclude password and refreshtokens from user object
+        )
+
+        if (!createduser) {
+            return res.status(500).json({
                 status: "failed",
-                message: "User not created",
+                message: "User could not be created",
             });
         }
 
+
         return res.status(201).json({
             status: "success",
-            data: {
-                user,
-            },
+            data: { createduser },
             message: "User created successfully",
         });
-        
+
     } catch (error) {
-         console.log(error);
+        console.log(error);
     }
 }
 
@@ -57,6 +78,8 @@ const loginUser = async (req, res) => {
 
         const { email, password } = req.body;
 
+        console.log(req.body);
+
         if ([email, password].some((field) => field?.trim() === "")) {
             return res.status(400).json({
                 status: "failed",
@@ -64,52 +87,92 @@ const loginUser = async (req, res) => {
             });
         }
 
-        const user = await User.findOne({
-            email,
-            password,
-        })
+        const user = await User.findOne({ email });
 
         if (!user) {
-            return res.status(400).json({
+            return res.status(404).json({
                 status: "failed",
-                message: "Invalid credentials",
+                message: "User not found in database",
             });
         }
-        
-        //store user id in cookie
-        const userId = user._id;
 
-       
+        const isPassValid = await user.verifyPassword(password);
+
+        if (!isPassValid) {
+            return res.status(400).json({
+                status: "failed",
+                message: "Invalid password",
+            });
+        }
+
+        // Generate token
+        const token = await generateToken(user._id);
+
+        const loggedinuser = await User.findById(user._id).select(
+            "-password" // exclude password and refreshtokens from user object
+        )
+
+        if (!loggedinuser) {
+            return res.status(500).json({
+                status: "failed",
+                message: "User could not be logged in",
+            });
+        }
+
+        const options = {
+            httpOnly: true, // only accessible by server
+            secure: true,  // only works on https cookie is not modifiable
+        }
+
+        // Store token in session
+        req.session.token = true;
+        req.session.user = user;
+
+        // Send response with token and user data
         return res
-        .cookie("userid", userId)
-        .status(200)
-        .json({
-            status: "success",
-            data: {
-                user,
-            },
-            message: "User logged in successfully",
-        });
-
-        
+            .cookie("token", token, options)
+            .status(200)
+            .json({
+                status: "success",
+                data: {
+                    user: {
+                        _id: user._id,
+                        email: user.email,
+                        // Add any other relevant user data here
+                    },
+                    token,
+                },
+                message: "User logged in successfully",
+            });
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        return res.status(500).json({
+            status: "error",
+            message: "Internal server error",
+        });
     }
-}
+};
+
 
 const logoutUser = async (req, res) => {
     try {
-        //remove user id from session
-
+        // Clear the cookie         
         return res
-        .clearCookie('userid')
-        .status(200).json({
-            status: "success",
-            message: "User logged out successfully",
-        });
-    } catch (error) {
-        console.log(error);
-    }
-}
+            .clearCookie("token")
+            .status(200)
+            .json({
+                status: "success",
+                message: "User logged out successfully",
+            });
 
-export { registerUser, loginUser, logoutUser};
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            status: "error",
+            message: "Internal server error",
+        });
+    }
+};
+
+
+export { registerUser, loginUser, logoutUser };

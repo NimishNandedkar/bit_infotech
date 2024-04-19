@@ -1,7 +1,7 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import getCurrentUser from '../../../BACKEND/src/middelwares/auth.middelware';
+
 import { useSelector } from 'react-redux';
 import Logoutbtn from './Logoutbtn';
 
@@ -17,10 +17,6 @@ export default function Header() {
         setMobileMenuOpen(!mobileMenuOpen);
     };
     
-    
-
-
-
     return (
         <header className="shadow-lg sticky z-50 top-0 rounded-b-2xl">
             <nav className="bg-white border-gray-200 px-2 lg:px-4 py-2.5 rounded-b-2xl">

@@ -1,8 +1,26 @@
 import axios from 'axios';
 import React, { useState} from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import Alertjsx from '../Alert/Alert';
 
 function Signup() {
+
+    const user = useSelector((state) => state.auth.status);
+    const navgate = useNavigate();
+
+    if (user) {
+        // If user is logged in, navigate to home page
+        // Redirect the user to the home page after 1000ms
+        setTimeout(() => {
+            navgate('/');
+        }, 500);
+    }
+
+    const [open, setOpen] = useState(false);
+    const [severity, setSeverity] = useState('success');
+    const [message, setMessage] = useState('');
+
     const [SignUpSuccess, setSignUpSuccess] = useState(false);  // This is optional, you can use it to show a success message to the user
     const [SignUpError, setSignUpError] = useState(false);  // This is optional, you can use it to show an error message to the user
     const [error, setError] = useState('');  // This is optional, you can use it to show an error message to the user
@@ -27,8 +45,11 @@ function Signup() {
             const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/user/register`, formData);
 
             // Handle success, maybe redirect the user or show a success message
-            setSignUpSuccess(true);
-            console.log(response.data);
+            // setSignUpSuccess(true);
+            setOpen(true);
+            setSeverity('success');
+            setMessage('Your account has been created successfully');
+
         } catch (error) {
             console.error('Error:', error.message);
             setSignUpError(true);
@@ -39,7 +60,7 @@ function Signup() {
 
     return (
         <>
-
+            <Alertjsx open={open} handleClose={setOpen} severity={severity} message={message} />
             <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-5 ">
                 <div className="p-8 xs:p-0 mx-auto md:w-full md:max-w-md">
                     <h1 className="font-bold text-center text-2xl mb-5">Sign up</h1>
