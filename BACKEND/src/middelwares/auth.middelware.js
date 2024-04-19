@@ -8,8 +8,6 @@ const getCurrentUser = async (req, res, next) => {
     
        try {
         
-        // const isAdmin = req.body
-        // console.log(isAdmin + "isAdmin");
          const token = req.cookies?.token || req.headers["Authorization"]?.replace("Bearer ", "");
          console.log(req.cookies?.token);
  

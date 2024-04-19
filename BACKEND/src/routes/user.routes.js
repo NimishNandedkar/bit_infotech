@@ -12,13 +12,15 @@ router.route("/register").post(
 )
 
 router.route("/login").post(
-    isAdmin, loginUser
+    loginUser
 )
 
 router.route("/logout").post(
-    getCurrentUser, logoutUser)
+    getCurrentUser, logoutUser
+)
 
 router.route("/student-corner").post(
-    getCurrentUser, upload.single('file'), uploadFile)
+    getCurrentUser, upload.single('file'), uploadFile
+)
 
 export default router;
