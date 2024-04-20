@@ -28,8 +28,8 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
       <Route path='' element={<Home />} />
-      <Route path='blogs/*' element={<Blogs />} />
-      <Route path='blogs/card' element={<Cards />} />
+      <Route path='blogs' element={<Blogs />} />
+      <Route path='blog/:id' element={<Cards />} />
       <Route path='student-corner' element={<ProjectUpload />} />
       <Route path='seminar-webinar' element={<SeminarWebinar />} />
       <Route path='events' element={<Events />} />

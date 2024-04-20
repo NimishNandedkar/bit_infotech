@@ -1,24 +1,39 @@
 
 import { User } from "../models/user.model.js";
 
+// const generateToken = async (userId) => {
+//     try {
+
+//         const user = await User.findById(userId)
+//         if (!user) {
+//             return res.status(404).json({
+//                 status: "failed",
+//                 message: "User not found",
+//             });
+//         }
+
+//         const token = user.generateJWTToken();
+//         return token;
+
+//     } catch (error) {
+//         console.log(error + "error in generateToken");
+//     }
+// }
+
+
+
 const generateToken = async (userId) => {
     try {
-
-        const user = await User.findById(userId)
+        const user = await User.findById(userId);
         if (!user) {
-            return res.status(404).json({
-                status: "failed",
-                message: "User not found",
-            });
+            throw new Error("User not found");
         }
-
-        const token = user.generateJWTToken();
+        const token = await user.generateJWTToken();
         return token;
-
     } catch (error) {
-        console.log(error + "error in generateToken");
+        throw new Error("Error in generateToken: " + error.message);
     }
-}
+};
 
 const registerUser = async (req, res) => {
     try {
@@ -89,6 +104,51 @@ const loginUser = async (req, res) => {
 
         const user = await User.findOne({ email });
 
+        if (user.role === "admin") {
+            // create a jwt token
+            const token = generateToken(user._id).then((token) => {
+                console.log(token);
+
+                const options = {
+                    httpOnly: true, // only accessible by server
+                    secure: true,  // only works on https, cookie is not modifiable
+                };
+
+                console.log(options);
+
+                // Store token in session
+                req.session.token = true;
+                req.session.user = user;    
+
+                 res
+                    .cookie("token", token, options)
+                    .status(200)
+                    .json({
+                        status: "success",
+                        data: {
+                            user: {
+                                _id: user._id,
+                                email: user.email,
+                                role: user.role
+                                // Add any other relevant user data here
+                            },
+                            token,
+                        },
+                        message: "Admin logged in successfully",
+                    });
+
+                    console.log({
+                        user: {
+                            _id: user._id,
+                            email: user.email,
+                            role: user.role
+                        },
+                        user
+                    });
+            });
+        }else {
+        // Check if user exists
+        console.log(user.role);
         if (!user) {
             return res.status(404).json({
                 status: "failed",
@@ -123,6 +183,7 @@ const loginUser = async (req, res) => {
             httpOnly: true, // only accessible by server
             secure: true,  // only works on https cookie is not modifiable
         }
+    
 
         // Store token in session
         req.session.token = true;
@@ -144,6 +205,7 @@ const loginUser = async (req, res) => {
                 },
                 message: "User logged in successfully",
             });
+        }
     } catch (error) {
         console.error(error);
         return res.status(500).json({

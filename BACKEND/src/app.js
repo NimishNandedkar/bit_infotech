@@ -52,6 +52,7 @@ import { User } from './models/user.model.js';
 // routes declaration
 
 app.use('/api/v1/user', userRouter);
+
 // app.use('/api/v1/createblog', blogRouter);
 // app.use('/api/v1/blogDetail', blogRouter);
 // app.use('/api/v1/deleteBlog', blogRouter);

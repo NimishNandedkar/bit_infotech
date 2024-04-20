@@ -106,6 +106,7 @@ function ProjectUpload() {
     const [selectedOption, setSelectedOption] = useState('');
 
     const handleOptionSelect = (option) => {
+        console.log(option);
         setSelectedOption(option);
         setFormData({ ...formData, course: option });
     };
@@ -152,8 +153,12 @@ function ProjectUpload() {
                             {errors.description && <span className="text-red-500 text-sm">{errors.description}</span>}
                             <span className="text-gray-500 text-sm">Max 280 characters</span>
                         </div>
-                        <DropdownButton dropDownContent={courses} InitialValue={"Select Course"}
-                            onSelect={handleOptionSelect}
+                        <DropdownButton 
+                        dropDownContent={courses} 
+                        onSelect={handleOptionSelect} 
+                        dropDownInitialValue={(selectedOption) ? selectedOption : "Select Course"} 
+                        isFormSubmitted={false} 
+                        setIsFormSubmitted={false}
                         />
                         {errors.course && <span className="text-red-500 text-sm">{errors.course}</span>}
 

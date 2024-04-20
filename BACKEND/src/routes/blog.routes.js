@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { createBlog , deleteBlog, showblogdata, updateBlog } from "../controllers/blog.controller.js";
 import upload from "../middelwares/multer.middleware.js";
+import getCurrentUser from "../middelwares/auth.middelware.js";
+import { getBlogById, getBlogs,  } from "../controllers/getblogs.controller.js";
 
 
 // Note if you are uploading file in form data kindy put "upload.single('headerImage')" is method parameter
@@ -22,6 +24,8 @@ blogRouter.route("/deleteblog/:id").delete(deleteBlog);
 
 //Route to Update Blog 
 blogRouter.route("/updateblog/:id").patch(  upload.single('headerImage')  , updateBlog);
+
+
 
 
 export default blogRouter;

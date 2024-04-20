@@ -4,6 +4,8 @@ import getCurrentUser from "../middelwares/auth.middelware.js";
 import { uploadFile } from "../controllers/fileUpload.controller.js";
 import upload from "../middelwares/multer.middelware.js";
 import { isAdmin } from "../middelwares/admin.middelware.js";
+import { getBlogById, getBlogs } from "../controllers/getblogs.controller.js";
+
 
 const router = Router();
 
@@ -12,7 +14,7 @@ router.route("/register").post(
 )
 
 router.route("/login").post(
-    loginUser
+ loginUser
 )
 
 router.route("/logout").post(
@@ -21,6 +23,14 @@ router.route("/logout").post(
 
 router.route("/student-corner").post(
     getCurrentUser, upload.single('file'), uploadFile
+)
+
+router.route("/blogs").get(
+    getCurrentUser, getBlogs
+)
+
+router.route("/blog/:id").get(
+    getCurrentUser, getBlogById
 )
 
 export default router;

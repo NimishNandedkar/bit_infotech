@@ -56,10 +56,10 @@ function Login() {
             // Handle success, maybe redirect the user or show a success message
             console.log(response.data);
             setLoginSuccess(true);
-            dispatch(authLogin({ userData: response.data.data.token}));
+            dispatch(authLogin({ userData: response.data.data}));
 
             //set the user_id data in the cookies to be used in the getCurrentUser middleware 
-            document.cookie = `token=${response.data.data.token}; max-age=3600; path=/`;
+            document.cookie = `token=${response.data.data.token}; max-age=3600; path=/localhost:3000/`;
 
             //show the success message
             setOpen(true);

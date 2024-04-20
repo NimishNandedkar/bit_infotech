@@ -101,6 +101,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 const DropdownButton = ({ dropDownContent, dropDownInitialValue, onSelect, isFormSubmitted, setIsFormSubmitted }) => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);
+
   const dropdownRef = useRef(null);
 
   useEffect(() => {
@@ -117,10 +118,11 @@ const DropdownButton = ({ dropDownContent, dropDownInitialValue, onSelect, isFor
     };
   }, []);
 
-  const handleOptionClick = (option) => {
-    onSelect(option);
-    setDropdownVisible(false);
-  };
+  // const handleOptionClick = (option) => {
+  //   console.log(option);
+  //   onSelect(option);
+  //   setDropdownVisible(false);
+  // };
 
   useEffect(() => {
     if (isFormSubmitted) {
@@ -146,7 +148,7 @@ const DropdownButton = ({ dropDownContent, dropDownInitialValue, onSelect, isFor
             <div
               key={index}
               className="px-4 py-2 cursor-pointer hover:bg-blue-500 hover:text-white"
-              onClick={() => handleOptionClick(course)}
+              onClick={() => onSelect(course)}
             >
               {course}
             </div>
