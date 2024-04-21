@@ -15,32 +15,31 @@ import CreateWebinar from './CreateWebinar';
 import { useSelector } from 'react-redux';
 
 function AdminPanel() {
-    const user = useSelector((state) => state.auth.status);
     const navigate = useNavigate();
-
+    const isAdmin = useSelector(state => state.auth.role === 'admin');
     useEffect(() => {
-        if (!user) {
-          navigate('/login');
+        if (!isAdmin) {
+            navigate('/login');
         }
-      } 
-      , [user, navigate]);
+    }
+        , [isAdmin, navigate]);
 
     return (
 
-        
+
         <>
             <AdminLayout>
-                
+
 
                 <Routes>
-                   
-                <Route path="/blog-manage" element={<BlogManage />} />
-                <Route path="/write-blog" element={<CreateBlog />} />
-                <Route path="/student-corner-manage" element={<StudentCornerManage />} />
-                <Route path="/webinar-seminar-manage" element={<WebinarSeminarManage />} />
-                <Route path='/create-webinar' element={<CreateWebinar/>}/>
-                <Route path='/create-seminar' element={<CreateWebinar/>}/>
-                
+
+                    <Route path="/blog-manage" element={<BlogManage />} />
+                    <Route path="/write-blog" element={<CreateBlog />} />
+                    <Route path="/student-corner-manage" element={<StudentCornerManage />} />
+                    <Route path="/webinar-seminar-manage" element={<WebinarSeminarManage />} />
+                    <Route path='/create-webinar' element={<CreateWebinar />} />
+                    <Route path='/create-seminar' element={<CreateWebinar />} />
+
 
                 </Routes>
             </AdminLayout>

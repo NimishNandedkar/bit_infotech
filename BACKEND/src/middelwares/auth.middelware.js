@@ -8,8 +8,8 @@ const getCurrentUser = async (req, res, next) => {
     
        try {
         
+         console.log(req.cookies);
          const token = req.cookies?.token || req.headers["Authorization"]?.replace("Bearer ", "");
-         console.log(req.cookies?.token);
  
          if (!token) {
              console.log("No token provided");

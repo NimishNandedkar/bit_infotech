@@ -1,11 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { login as authLogin } from '../../store/auth.js'
-import { useDispatch } from 'react-redux';
 
 export default function Home() {
     const [user, setUser] = useState(null);
-    const dispatch = useDispatch();
+
 
 
     useEffect(() => {
@@ -16,15 +14,14 @@ export default function Home() {
                     withCredentials: true
                 });
                
-                const token = response.data.token;
+                console.log(response.data )
+                const token = response.data
 
                 if (!token) {
                     console.log("session expired, please login again")
                     alert("session expired, please login again")
                     return null
                 }
-
-                dispatch(authLogin({ userData: token }));
                
                 // Update user state with data from the server response
                 setUser(response.data.token);

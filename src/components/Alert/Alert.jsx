@@ -1,8 +1,8 @@
 import React from 'react'
-import { Alert } from '@mui/material'
+import { Alert, duration } from '@mui/material'
 import Snackbar from '@mui/material/Snackbar'
 
-function Alertjsx({open, handleClose, severity, message }) {
+function Alertjsx({open, handleClose, severity, message, duration}) {
    
     return (
         <>
@@ -13,7 +13,7 @@ function Alertjsx({open, handleClose, severity, message }) {
 
                 }}
                 open={open}
-                autoHideDuration={1000}
+                autoHideDuration= {400}
                 onClose={handleClose}>
 
                 <Alert className='mt-14' variant='filled' color={severity}  onClose={handleClose} severity={severity} >

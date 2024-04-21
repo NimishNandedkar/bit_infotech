@@ -26,11 +26,11 @@ router.route("/student-corner").post(
 )
 
 router.route("/blogs").get(
-    getCurrentUser, getBlogs
+     getBlogs
 )
 
-router.route("/blog/:id").get(
-    getCurrentUser, getBlogById
+router.route("/blogs/:id").get(
+     getBlogById
 )
 
 export default router;

@@ -7,6 +7,7 @@ import Alert from '../Alert/Alert.jsx';
 import axios from 'axios';
 
 function Login() {
+    const isAdmin = useSelector((state) => state.auth.isAdmin);
     const user = useSelector((state) => state.auth.status);
     const dispatch = useDispatch();
     const navgate = useNavigate();
@@ -56,15 +57,15 @@ function Login() {
             // Handle success, maybe redirect the user or show a success message
             console.log(response.data);
             setLoginSuccess(true);
-            dispatch(authLogin({ userData: response.data.data}));
+            dispatch(authLogin({ userData: response.data.data.user}));
 
             //set the user_id data in the cookies to be used in the getCurrentUser middleware 
-            document.cookie = `token=${response.data.data.token}; max-age=3600; path=/localhost:3000/`;
+            document.cookie = `token=${response.data.data.token}; max-age=3600; path=/`;
 
             //show the success message
             setOpen(true);
             setSeverity('success');
-            setMessage('You have successfully logged in');
+            setMessage(isAdmin ? 'welcome Admin' : 'You have successfully logged in');
 
             // Redirect the user to the home page after 1000ms
             setTimeout(() => {
@@ -91,7 +92,7 @@ function Login() {
     return (
         <>
             <div className='position-relative'>
-            <Alert open={open} handleClose={handleClose} severity={severity} message={message} />
+            <Alert open={open} handleClose={handleClose} severity={severity} message={message} duration={2000} />
             </div>
             <div className="min-h-screen bg-gray-200 flex flex-col justify-center sm:py-5 ">
                 <div className="p-8 xs:p-0 mx-auto md:w-full md:max-w-md">

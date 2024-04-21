@@ -54,12 +54,13 @@ import jwt from "jsonwebtoken";
 
         // Save file details to database
         const project = await Project.create({
-            username: user.name.value,
+            username: user._id,  
             title,
             description,
             projectType,
             file: fileUpload.url, // Use file URL or other relevant property
         });
+        //populate user in database
 
         // Check if file details were saved successfully
         if (!project) {

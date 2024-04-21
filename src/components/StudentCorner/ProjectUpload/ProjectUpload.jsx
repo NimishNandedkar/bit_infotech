@@ -12,15 +12,16 @@ function ProjectUpload() {
 
     const navigate = useNavigate();
     const user = useSelector((state) => state.auth.status);
-    
 
-   useEffect(() => {
+
+    useEffect(() => {
         if (!user) {
             navigate('/login');
         }
     }, [user, navigate]);
-    
-   
+
+
+    const [dropdownVisible, setDropdownVisible] = useState(true);
     const [open, setOpen] = useState(false);
     const [severity, setSeverity] = useState('success');
     const [message, setMessage] = useState('');
@@ -66,15 +67,7 @@ function ProjectUpload() {
                 formDataToSend.append('file', formData.file[0]);
                 // formDataToSend.append('subjectName', formData.subjectName);
                 // formDataToSend.append('course', formData.course);
-                
-                setFormData({
-                    title: "",
-                    subjectName: "",
-                    projectType: "",
-                    description: "",
-                    course: "",
-                    file: null
-                });
+
                 const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/user/student-corner`, formDataToSend, {
                     withCredentials: true,
                     headers: {
@@ -106,9 +99,9 @@ function ProjectUpload() {
     const [selectedOption, setSelectedOption] = useState('');
 
     const handleOptionSelect = (option) => {
-        console.log(option);
         setSelectedOption(option);
         setFormData({ ...formData, course: option });
+        setDropdownVisible(false);
     };
     // *********************************************************************
 
@@ -153,13 +146,18 @@ function ProjectUpload() {
                             {errors.description && <span className="text-red-500 text-sm">{errors.description}</span>}
                             <span className="text-gray-500 text-sm">Max 280 characters</span>
                         </div>
-                        <DropdownButton 
-                        dropDownContent={courses} 
-                        onSelect={handleOptionSelect} 
-                        dropDownInitialValue={(selectedOption) ? selectedOption : "Select Course"} 
-                        isFormSubmitted={false} 
-                        setIsFormSubmitted={false}
+
+                        <DropdownButton
+                            dropDownContent={courses}
+                            onSelect={handleOptionSelect}
+                            dropDownInitialValue={selectedOption ? selectedOption : "Select Category"}
+                            isFormSubmitted={false}
+                            setIsFormSubmitted={() => {
+                                setFormData({ ...formData, course: selectedOption });
+                            }}
                         />
+
+
                         {errors.course && <span className="text-red-500 text-sm">{errors.course}</span>}
 
                         <FileDragandDrop onFilesChange={

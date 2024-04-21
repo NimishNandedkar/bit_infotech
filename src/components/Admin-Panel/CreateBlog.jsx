@@ -199,14 +199,6 @@ function CreateBlog({ blogTitle = "", headerImage = "", blogContent = "", catego
 
   };
 
-  const [selectedOption, setSelectedOption] = useState('');
-
-  const handleOptionSelect = (option) => {
-    console.log(option);
-    setSelectedOption(option);
-    setFormData({ ...formData, course: option });
-  };
-
 
 
 
@@ -214,7 +206,7 @@ function CreateBlog({ blogTitle = "", headerImage = "", blogContent = "", catego
   console.log("request to update :", reqToUpdate);
 
   return (
-    <div className="mx-360 max-w-screen-2xl p-6 flex-none sm:flex-initial justify-center">
+    <div className="mx-360 max-w-screen-2xl p-6 flex-none sm:flex-initial justify-center bg-white rounded-lg">
 
 
       {serverResponse && <ServerResponsePopup isSubmitClicked={isSubmitClicked} isFormSubmitted={isFormSubmitted} message={serverResponse} isError={isError} resetErrorAndSubmitted={resetErrorAndSubmitted} />}
@@ -267,24 +259,21 @@ function CreateBlog({ blogTitle = "", headerImage = "", blogContent = "", catego
 
         />
 
-        {/* <DropdownButton
-          dropDownContent={categories}
-          dropDownInitialValue="Select Category"
-          name="category" // Added name attribute for form data binding
-          onSelect={(category) => setFormData(prevState => ({
-            ...prevState,
-            category: category
-          }))}
+        <div >
+          <DropdownButton
+            dropDownContent={categories}
+            dropDownInitialValue={formData.category || "Select Category"}
+            name="category" // Added name attribute for form data binding
+            onSelect={(category) => setFormData(prevState => ({
+              ...prevState,
+              category: category
+            }))}
 
-          isFormSubmitted={isFormSubmitted}
-          setIsFormSubmitted={setIsFormSubmitted}
+            isFormSubmitted={isFormSubmitted}
+            setIsFormSubmitted={setIsFormSubmitted}
 
-        /> */}
-
-
-        <DropdownButton dropDownContent={categories} onSelect={handleOptionSelect} dropDownInitialValue={(selectedOption) ? selectedOption : "Select Course"}
-          isFormSubmitted={false}
-          setIsFormSubmitted={false} />
+          />
+        </div>
 
         <div className="flex items-center justify-between">
           <button type="submit" className="flex justify-center items-center bg-blue-500 hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue text-white py-2 px-4 rounded-md transition duration-300 gap-2">

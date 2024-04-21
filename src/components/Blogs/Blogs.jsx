@@ -6,16 +6,11 @@ import axios from 'axios';
 import parse from "html-react-parser";
 
 function Blogs() {
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.auth.status);
 
   // ************************************
 
-  const data = JSON.parse(localStorage.getItem('blogs'));
   // Remove unused variables
-  // const [blogs, setBlogs] = React.useState([]);
-  // const [loading, setLoading] = React.useState(true);
-
+  const[data, setData] = React.useState(null); // Initialize data state as null
 
   useEffect(() => {
     async function getBlogs() {
@@ -31,10 +26,9 @@ function Blogs() {
         localStorage.setItem('blogs', JSON.stringify(response.data.data));
 
         //get the data from the local storage in array format
-        const data = JSON.parse(localStorage.getItem('blogs'));
+        const data = await JSON.parse(localStorage.getItem('blogs'));
         console.log(data);
-
-
+        setData(data);
 
       } catch (error) {
         console.error('Error fetching blogs:', error);
@@ -47,12 +41,7 @@ function Blogs() {
 
 
   // ************************************
-  useEffect(() => {
-    if (!user) {
-      navigate('/login');
-    }
-  }
-    , [user, navigate]);
+
 
   return (
 

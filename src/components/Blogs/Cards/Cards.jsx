@@ -8,9 +8,7 @@ import { useSelector } from 'react-redux';
 function Cards() {
     const [blog, setBlog] = React.useState([]);
     const [error, setError] = React.useState(null); // Add error state
-    const navigate = useNavigate();
-    const user = useSelector((state) => state.auth.status);
-
+   
     const { id } = useParams() //this hook is used to get the id from the url for example if the url is /blogs/1 then the id will be 1
 
     console.log(id);
@@ -19,7 +17,7 @@ function Cards() {
     useEffect(() => {
         async function getBlogs() {
           try {
-            const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/user/blog/${id}`, {
+            const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/user/blogs/${id}`, {
               withCredentials: true,
             });
             console.log(response.data.data);
@@ -39,15 +37,6 @@ function Cards() {
     
         getBlogs();
       }, [id]);
-
-
-      useEffect(() => {
-        if (!user) {
-          navigate('/login');
-        }
-      }
-        , [user, navigate]);
-
 
     return (
         <>
