@@ -29,7 +29,7 @@ function EventManage() {
     try {
       await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/events/deleteEvent/${projectId}`);
       // Update projects state after deletion
-      setProjects(projects.filter(project => project.id !== projectId));
+      setProjects(projects.filter(project => project._id !== projectId));
 
       console.log(projectId);
 
@@ -64,12 +64,12 @@ function EventManage() {
                   <TableBody>
 
                         {projects.map(project => (
-                            <TableRow key={project.id}>
-                                <TableCell>{project.EventName}</TableCell>
+                            <TableRow key={project._id}>
+                                <TableCell>{project.eventName}</TableCell>
                                 <TableCell>{project.description}</TableCell>
                                 <TableCell>
                                 <Button variant="contained" color="primary"  onClick={() => handleView(project)}>View</Button>
-                                <Button variant="contained" color="error" className="left-2" onClick={() => deleteProject(project.id)}>Delete</Button>
+                                <Button variant="contained" color="error" className="left-2" onClick={() => deleteProject(project._id)}>Delete</Button>
                                 </TableCell>
                             </TableRow>
                         ))}  

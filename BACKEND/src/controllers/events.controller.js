@@ -90,21 +90,30 @@ const getEvents = async (req, res) => {
             });
         }
 
-        const data = events.map((event) => {
-            return {
-                id: event._id,
-                EventName: event.EventName,
-                Agenda: event.Agenda,
-                Image: event.ImageUrl,
-                EventDate: event.EventDate,
-                CeratedAt: event.createdAt,
-            }
-        });
+        // const data = events.map((event) => {
+        //     return {
+        //         id: event._id,
+        //         EventName: event.eventName,
+        //         Agenda: event.Agenda,
+        //         Image: event.ImageUrl,
+        //         EventDate: event.EventDate,
+        //         CreatedAt: event.createdAt,
+        //         Description : event.description
+        //     }
+        // });
 
+        // console.log(data);
         return res.status(200).json({
             status: "success",
-            data
+            data: events,
+            message: "All events retrieved successfully",
         });
+
+        // return res.status(200).json({
+        //     status: "success",
+        //     data:data,
+        //     message: "All events retrieved successfully",
+        // });
 
     } catch (error) {
         console.log(error.message + "error in getEvents");
