@@ -13,6 +13,10 @@ export default defineConfig({
     },
   },
   plugins: [react(), nodePolyfills()],
-  // plugins:[react()]
+  resolve: {
+    alias: {
+      '@material-ui/core': '@mui/material', // Add this line
+    },
+  },
   
 })
