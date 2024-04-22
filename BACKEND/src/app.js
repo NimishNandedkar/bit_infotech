@@ -47,6 +47,7 @@ app.use(session({        // this is used to create a session middleware
 import userRouter from './routes/user.routes.js';
 import blogRouter from './routes/blog.routes.js';
 import { User } from './models/user.model.js';
+import eventRouter from './routes/events.routes.js';
 
 
 // routes declaration
@@ -58,6 +59,8 @@ app.use('/api/v1/user', userRouter);
 // app.use('/api/v1/deleteBlog', blogRouter);
 
 app.use('/api/v1/blogs', blogRouter)
+
+app.use('/api/v1/events', eventRouter)
 
 
 app.get('/', async (req, res) => {
