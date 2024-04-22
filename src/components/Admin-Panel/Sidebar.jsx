@@ -5,6 +5,7 @@ import AdminDropDown from './AdminDropDown';
 import { FaBlog } from "react-icons/fa";
 import { PiStudentBold } from "react-icons/pi";
 import { CgWebsite } from "react-icons/cg";
+import { MdEventNote } from "react-icons/md";
 
 const Sidebar = () => {
 
@@ -51,6 +52,19 @@ const Sidebar = () => {
           isOpen={openDropdown==="Webinar/Seminar"}
           onClick={()=>{handleDropdownClick("Webinar/Seminar")}}
         />
+
+        <AdminDropDown
+          title="Events"
+          links={[
+            { to: '/admin/events-manage', label: 'Manage Events' },'divider',
+            { to: '/admin/create-events', label: 'Create Events' },'divider',
+          ]}
+          icon={MdEventNote }
+          isOpen={openDropdown==="Events"}
+          onClick={()=>{handleDropdownClick("Events")}}
+        />
+
+
       </div>
     </div>
   );

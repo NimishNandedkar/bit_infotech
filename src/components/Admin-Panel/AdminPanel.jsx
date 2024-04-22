@@ -13,6 +13,8 @@ import AdminLayout from './AdminLayout';
 import CreateBlog from './CreateBlog';
 import CreateWebinar from './CreateWebinar';
 import { useSelector } from 'react-redux';
+import CreateEvents from './CreateEvents';
+import EventManage from './EventManage';
 
 function AdminPanel() {
     const navigate = useNavigate();
@@ -39,6 +41,9 @@ function AdminPanel() {
                     <Route path="/webinar-seminar-manage" element={<WebinarSeminarManage />} />
                     <Route path='/create-webinar' element={<CreateWebinar />} />
                     <Route path='/create-seminar' element={<CreateWebinar />} />
+                    <Route path='/create-events' element={<CreateEvents />} />
+                    <Route path='/events-manage' element={<EventManage />} />
+                    
 
 
                 </Routes>
