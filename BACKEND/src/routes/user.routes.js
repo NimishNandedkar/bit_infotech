@@ -5,6 +5,7 @@ import { uploadFile } from "../controllers/fileUpload.controller.js";
 import upload from "../middelwares/multer.middelware.js";
 import { isAdmin } from "../middelwares/admin.middelware.js";
 import { getBlogById, getBlogs } from "../controllers/getblogs.controller.js";
+import { deleteStudentProjectData, getStudentProjectData } from "../controllers/studentCornerBackend.js";
 
 
 const router = Router();
@@ -32,5 +33,15 @@ router.route("/blogs").get(
 router.route("/blogs/:id").get(
      getBlogById
 )
+
+
+//will get all the data of  projects uploaded 
+router.route("/project-details/").get(getStudentProjectData)
+
+//Route to delete Project data using id 
+router.route("/project-details/:id").delete(deleteStudentProjectData)
+
+
+
 
 export default router;
