@@ -14,7 +14,7 @@ function EventManage() {
 
         const fetchProjects = async () => {
             try {
-              const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/user/project-details/`);
+              const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/events/getEvents/`);
               setProjects(response.data.data);
               setLoading(false); // Set loading to false after data is fetched
 
@@ -27,11 +27,11 @@ function EventManage() {
 
   const deleteProject = async (projectId) => {
     try {
-      await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/user/project-details/${projectId}`);
+      await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/events/deleteEvent/${projectId}`);
       // Update projects state after deletion
-      setProjects(projects.filter(project => project._id !== projectId));
+      setProjects(projects.filter(project => project.id !== projectId));
 
-      console.log(setProjects(projects.filter(project => project._id !== projectId)));
+      console.log(projectId);
 
     } catch (error) {
       console.error('Error deleting project:', error);
@@ -56,22 +56,23 @@ function EventManage() {
                 <Table aria-label="projects table">
                   <TableHead>
                     <TableRow>
-                      <TableCell>Title</TableCell>
+                      <TableCell>Event Name</TableCell>
                       <TableCell>Description</TableCell>
                       <TableCell>Actions</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {projects.map(project => (
-                      <TableRow key={project._id}>
-                        <TableCell>{project.title}</TableCell>
-                        <TableCell>{project.description}</TableCell>
-                        <TableCell>
-                          <Button variant="contained" color="primary"  onClick={() => handleView(project)}>View</Button>
-                          <Button variant="contained" color="error" className="left-2" onClick={() => deleteProject(project._id)}>Delete</Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
+
+                        {projects.map(project => (
+                            <TableRow key={project.id}>
+                                <TableCell>{project.EventName}</TableCell>
+                                <TableCell>{project.description}</TableCell>
+                                <TableCell>
+                                <Button variant="contained" color="primary"  onClick={() => handleView(project)}>View</Button>
+                                <Button variant="contained" color="error" className="left-2" onClick={() => deleteProject(project.id)}>Delete</Button>
+                                </TableCell>
+                            </TableRow>
+                        ))}  
                   </TableBody>
                 </Table>
               </TableContainer>

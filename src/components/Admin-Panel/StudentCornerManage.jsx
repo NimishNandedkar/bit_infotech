@@ -57,6 +57,7 @@ function StudentCornerManage() {
                 <Table aria-label="projects table">
                   <TableHead>
                     <TableRow>
+                      <TableCell>Student Name</TableCell>
                       <TableCell>Title</TableCell>
                       <TableCell>Description</TableCell>
                       <TableCell>Actions</TableCell>
@@ -65,6 +66,7 @@ function StudentCornerManage() {
                   <TableBody>
                     {projects.map(project => (
                       <TableRow key={project._id}>
+                        <TableCell>{project.username.name}</TableCell>
                         <TableCell>{project.title}</TableCell>
                         <TableCell>{project.description}</TableCell>
                         <TableCell>
