@@ -45,7 +45,7 @@ const Sidebar = () => {
           title="Webinar/Seminar"
           links={[
             { to: '/admin/webinar-seminar-manage', label: 'Manage Webinar & Seminar' },'divider',
-            { to: '/admin/create-webinar', label: 'Create Webinar-Seminar' },'divider',
+            { to: '/admin/create-webinar-seminar', label: 'Create Webinar-Seminar' },'divider',
             
           ]}
           icon={CgWebsite }

@@ -20,7 +20,7 @@ const ServerResponsePopup = ({ message , isError, resetErrorAndSubmitted , isSub
 
   console.log('serverResponse:', message);
   
-  console.log(("is Error ",isError));
+  console.log("is Error ",isError);
   console.log("submit button clicked ", isSubmitClicked);
 
   return (

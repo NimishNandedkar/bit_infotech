@@ -1,6 +1,8 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import { Webinar } from './models/webinar.model.js';
+
 
 import session from 'express-session';
 // import { Store } from 'express-session';
@@ -48,19 +50,21 @@ import userRouter from './routes/user.routes.js';
 import blogRouter from './routes/blog.routes.js';
 import { User } from './models/user.model.js';
 import eventRouter from './routes/events.routes.js';
+import webinarRouter from './routes/webinar.routes.js'
 
 
 // routes declaration
 
 app.use('/api/v1/user', userRouter);
 
-// app.use('/api/v1/createblog', blogRouter);
-// app.use('/api/v1/blogDetail', blogRouter);
-// app.use('/api/v1/deleteBlog', blogRouter);
-
 app.use('/api/v1/blogs', blogRouter)
 
 app.use('/api/v1/events', eventRouter)
+
+app.use('/api/v1/webinars', webinarRouter)
+
+
+
 
 
 app.get('/', async (req, res) => {

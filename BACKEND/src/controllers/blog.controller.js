@@ -8,7 +8,7 @@ const createBlog = async(req,res) =>{
 
         const {blogTitle , blogContent , category} = req.body ;
 
-        const headerImagefile = req.file?.path ; 
+        const headerImagefile = req.file?.path || null ; 
 
         console.log(req.file);
         console.log(req.body, "form req.body");
@@ -20,7 +20,7 @@ const createBlog = async(req,res) =>{
         console.log("category:", category);
 
 
-        if ([blogTitle , headerImagefile , blogContent , category].some((field) => field?.trim() === "" || undefined || null )) {
+        if ( !blogTitle || !blogContent || !category || !headerImagefile) {
             return res.status(400).json({
                 status: "failed",
                 message: "Please provide all the required fields",
