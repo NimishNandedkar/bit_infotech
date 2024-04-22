@@ -39,8 +39,7 @@ function AdminPanel() {
                     <Route path="/write-blog" element={<CreateBlog />} />
                     <Route path="/student-corner-manage" element={<StudentCornerManage />} />
                     <Route path="/webinar-seminar-manage" element={<WebinarSeminarManage />} />
-                    <Route path='/create-webinar' element={<CreateWebinar />} />
-                    <Route path='/create-seminar' element={<CreateWebinar />} />
+                    <Route path='/create-webinar-seminar' element={<CreateWebinar />} />
                     <Route path='/create-events' element={<CreateEvents />} />
                     <Route path='/events-manage' element={<EventManage />} />
                     

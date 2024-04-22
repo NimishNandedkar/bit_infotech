@@ -45,8 +45,8 @@ const Sidebar = () => {
           title="Webinar/Seminar"
           links={[
             { to: '/admin/webinar-seminar-manage', label: 'Manage Webinar & Seminar' },'divider',
-            { to: '/admin/create-webinar', label: 'Create Webinar' },'divider',
-            { to: '/admin/create-seminar', label: 'Create Seminar' }
+            { to: '/admin/create-webinar', label: 'Create Webinar-Seminar' },'divider',
+            
           ]}
           icon={CgWebsite }
           isOpen={openDropdown==="Webinar/Seminar"}
