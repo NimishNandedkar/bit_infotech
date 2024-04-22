@@ -1,27 +1,6 @@
 
 import { User } from "../models/user.model.js";
 
-// const generateToken = async (userId) => {
-//     try {
-
-//         const user = await User.findById(userId)
-//         if (!user) {
-//             return res.status(404).json({
-//                 status: "failed",
-//                 message: "User not found",
-//             });
-//         }
-
-//         const token = user.generateJWTToken();
-//         return token;
-
-//     } catch (error) {
-//         console.log(error + "error in generateToken");
-//     }
-// }
-
-
-
 const generateToken = async (userId) => {
     try {
         const user = await User.findById(userId);

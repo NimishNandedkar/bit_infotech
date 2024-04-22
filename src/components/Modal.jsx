@@ -41,8 +41,7 @@ export default function RegistrationDialog() {
 
   return (
     <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open Registration Form
+      <Button  onClick={handleClickOpen}>Register
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Register</DialogTitle>
