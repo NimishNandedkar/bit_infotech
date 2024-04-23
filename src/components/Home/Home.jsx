@@ -67,7 +67,7 @@ BIT has been a multi-disciplinary education and training Institute in Vadodara</
     <div className="md:w-1/2">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-6">Explore Our Blog</h2>
         <p className="text-lg text-gray-600 mb-8">Stay updated with the latest trends, insights, and news by reading our blog. Dive into informative articles written by industry experts and enthusiasts.</p>
-        <a href="#" className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">Read Our Blog</a>
+        <a href="/blogs" className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">Read Our Blog</a>
     </div>
     {/* <!-- Right content: SVG related to blog --> */}
     <div className="md:w-1/2 mt-8 md:mt-0">
@@ -92,7 +92,7 @@ BIT has been a multi-disciplinary education and training Institute in Vadodara</
         <div className="md:w-1/2">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-6">Student Corner</h2>
             <p className="text-lg text-gray-600 mb-8">Empowering students to showcase their projects and talents. Explore a diverse collection of projects created by students from various fields. Dive into innovative ideas and solutions.</p>
-            <a href="#" className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">Explore Projects</a>
+            <a href="/student-corner" className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">Explore Projects</a>
         </div>
     </div>
 </div>
@@ -110,7 +110,7 @@ BIT has been a multi-disciplinary education and training Institute in Vadodara</
         <div className="md:w-1/2">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-6">Upcoming Webinars & Seminars</h2>
             <p className="text-lg text-gray-600 mb-8">Stay informed about the latest webinars and seminars covering a wide range of topics. Register for upcoming events and expand your knowledge horizon.</p>
-            <a href="#" className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">View Upcoming Webinar & Seminar</a>
+            <a href="/seminar-webinar" className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">View Upcoming Webinar & Seminar</a>
         </div>
         {/* Right content: Info about the Webinar and Seminar feature */}
         <div className="md:w-1/2 mt-8 md:mt-0">
@@ -134,7 +134,7 @@ BIT has been a multi-disciplinary education and training Institute in Vadodara</
         <div className="md:w-1/2 mt-8 md:mt-0">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-6">Upcoming Events</h2>
             <p className="text-lg text-gray-600 mb-8">Stay updated about the latest events happening in your community. Discover exciting celebrations, prize distributions, corporate events, and more. Join us in these memorable moments and connect with like-minded individuals.</p>
-            <a href="#" className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">View Upcoming Events</a>
+            <a href="/events" className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-full shadow-lg transition duration-300">View Upcoming Events</a>
         </div>
     </div>
 </div>

@@ -102,8 +102,8 @@ function StudentCornerManage() {
                 </div>
             )}
             <div className="flex items-center justify-center">
-                <a href={selectedProject?.file} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline mr-4">View Project File</a>
-                <Button variant="contained" color="primary" onClick={() => window.open(selectedProject?.file, '_blank')}>Download</Button>
+                
+                <Button variant="contained" color="primary" onClick={() => window.open(selectedProject?.file, '_blank')}>Download Uploaded File</Button>
             </div>
             <div className="flex justify-center mt-6">
                 <Button variant="contained" color="secondary" onClick={closeModal}>Close</Button>

@@ -8,12 +8,14 @@ const WebinarSeminarManage = () => {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showViewModal , setShowViewModal] = useState(false)
   const [loading, setLoading] = useState(true); // New state for loading indicator
+
   const [reqToUpdate, setReqtoUpdate] = useState(true);
 
   useEffect(() => {
     fetchProjects();
-  }, [projects]);
+  }, [showModal , showViewModal]);
 
   const fetchProjects = async () => {
       try {
@@ -41,14 +43,20 @@ console.error('Error deleting project:', error);
 }
 };
 
-const handleView = (project) => {
+const handleUpdate = (project) => {
 setSelectedProject(project);
 setShowModal(true);
 };
 
+const handleView = (project) => {
+  setSelectedProject(project);
+  setShowViewModal(true);
+  };
+
 const closeModal = () => {
 setSelectedProject(null);
 setShowModal(false);
+setShowViewModal(false)
 };
 
 return (
@@ -72,7 +80,8 @@ return (
                       <TableCell>{project.title}</TableCell>
                       <TableCell>{project.description}</TableCell>
                       <TableCell>
-                          <Button variant="contained" color="primary" onClick={() => handleView(project)}>update</Button>
+                          <Button variant="contained" color="primary" onClick={() => handleView(project)}>View</Button>
+                          <Button variant="contained" color="secondary" style={{ marginLeft: '8px' }} onClick={() => handleUpdate(project)}>Edit</Button>
                           <Button variant="contained" color="error" style={{ marginLeft: '8px' }} onClick={() => deleteProject(project._id)}>Delete</Button>
                       </TableCell>
                   </TableRow>
@@ -94,7 +103,36 @@ return (
       </div>
   </div>
 </Modal>
+
+    {/* View Modal  */}
+
+          <Modal open={showViewModal} onClose={closeModal}>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3/5 bg-white p-8 rounded-lg shadow-lg outline-none">
+            <Typography variant="h4" className="mb-4 text-center text-xl font-bold">Webinar  Details</Typography>
+            <div className="mb-4">
+                <Typography variant="h5" className="mb-2">Title:</Typography>
+                <Typography variant="body1" className="pl-2">{selectedProject?.title}</Typography>
+            </div>
+            <div className="mb-4">
+                <Typography variant="h5" className="mb-2">Description:</Typography>
+                <Typography variant="body1" className="pl-2">{selectedProject?.description}</Typography>
+            </div>
+            <div className="mb-4">
+                <Typography variant="h5" className="mb-2">Category:</Typography>
+                <Typography variant="body1" className="pl-2">{selectedProject?.category}</Typography>
+            </div>
+            <div className="mb-4">
+                <Typography variant="h5" className="mb-2">Video URl:</Typography>
+                <Typography variant="body1" className="pl-2">{selectedProject?.videoUrl}</Typography>
+            </div>
+            <div className="flex justify-center mt-6">
+                <Button variant="contained" color="secondary" onClick={closeModal}>Close</Button>
+            </div>
+            </div>
+          </Modal>
+
 </div>
+
 );
 
  

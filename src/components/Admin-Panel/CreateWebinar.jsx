@@ -8,14 +8,16 @@ const CreateWebinar = ({ selectedProject="" , reqToUpdate = false }) => {
 
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
   const [serverResponse, setServerResponse] = useState(null);
-  
   const [isFormSubmitted, setIsFormSubmitted] = useState('')
-
   const [isError, setIsError] = useState(false)
+  const [selecteditem , setSelecteditem] = useState("Select Category")
+  const [open , setOpen] = useState(false)
+
+  const categories = ["Development", "Data Science", "Big Data", "Accounting"]; //DropDown content
 
   const [webinarData, setWebinarData] = useState({
     title: '',
-    category: '',
+    // category: '',
     description: '',
     videoUrl: ''
   });
@@ -33,6 +35,8 @@ const CreateWebinar = ({ selectedProject="" , reqToUpdate = false }) => {
     });
   }, [selectedProject]);
 
+  
+
 
 
   const handleChange = (e) => {
@@ -43,6 +47,9 @@ const CreateWebinar = ({ selectedProject="" , reqToUpdate = false }) => {
   };
 
   const handleSubmit = async (e) => {
+
+    
+
     e.preventDefault();
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/webinars/create-webinar/`, webinarData);
@@ -53,6 +60,7 @@ const CreateWebinar = ({ selectedProject="" , reqToUpdate = false }) => {
     } catch (error) {
       handleError(error.response.data.message);
       console.error('Error creating webinar:', error.response);
+      console.log(webinarData);
       // Handle error
     }finally{
       // Set isSubmitClicked to true
@@ -66,16 +74,6 @@ const CreateWebinar = ({ selectedProject="" , reqToUpdate = false }) => {
     e.preventDefault();
     try {
 
-      // const formUpdatedDataSend = new FormData();
-      // formUpdatedDataSend.append('blogTitle', formData.blogTitle);
-      // // formUpdatedDataSend.append('headerImage', formData.headerImage);
-      // formUpdatedDataSend.append('blogContent', content);
-      // formUpdatedDataSend.append('category', formData.category);
-
-
-      // if (formData.headerImage) {
-      //   formUpdatedDataSend.append('headerImage', formData.headerImage);
-      // }
         const response = await axios.patch(`${import.meta.env.VITE_API_BASE_URL}/webinars/update-webinar/${selectedProject._id}`, webinarData);
       // Handle success
 
@@ -102,6 +100,7 @@ const CreateWebinar = ({ selectedProject="" , reqToUpdate = false }) => {
     description: '',
     videoUrl: ''
     });
+    setSelecteditem("Select Category")
     
     // reset the category
     setIsFormSubmitted(true)
@@ -145,6 +144,18 @@ const CreateWebinar = ({ selectedProject="" , reqToUpdate = false }) => {
   };
 
   
+
+  const handleOnSelect = (value)=>{
+    setWebinarData(prevState => ({
+      ...prevState,
+      category: value 
+    }));
+    setSelecteditem(value);
+    setOpen(false);
+
+  }
+
+  
   return (
     <div className="max-w-md mx-auto"> 
       
@@ -169,7 +180,13 @@ const CreateWebinar = ({ selectedProject="" , reqToUpdate = false }) => {
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
             Category
           </label>
-          <input
+
+          <DropdownButton 
+          dropDownContent={categories}  
+          dropDownInitialValue ={reqToUpdate ? webinarData.category : selecteditem} 
+          onSelect={handleOnSelect}
+          />
+          {/* <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="category"
             type="text"
@@ -177,7 +194,7 @@ const CreateWebinar = ({ selectedProject="" , reqToUpdate = false }) => {
             name="category"
             value={webinarData.category}
             onChange={handleChange}
-          />
+          /> */}
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
