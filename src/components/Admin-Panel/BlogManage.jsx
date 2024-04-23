@@ -32,8 +32,8 @@ const BlogManage = () => {
 
 
   const handleEdit = (id) => {
-    setSelectedBlogId(id);
     
+    setSelectedBlogId(id);
     setIsModalOpen(true)
     
   };

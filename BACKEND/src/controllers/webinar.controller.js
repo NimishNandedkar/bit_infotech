@@ -37,55 +37,58 @@ const createWebinar = async (req, res) => {
 
 
 const registerForWebinar = async (req, res) => {
-    try {
-      const webinarId = req.params.id;
-      const token = req.cookies?.token;
-        
-      console.log(req.cookies);
+  try {
 
-      if (!token) {
-        return res.status(401).json({ message: "Unauthorized" });
-      }
-  
-      // Verify the token and extract the user ID
-      let userId;
-      try {
-        userId = jwt.verify(token, process.env.TOKEN_SECRET);
+    console.log(req.headers);
+    console.log(req.cookies);
+    const { id } = req.params;
+    console.log(id);
+    const token = req.cookies?.token || req.headers["Authorization"]?.replace("Bearer ", "");
+    console.log(token);
 
-        console.log(userId);
-      } catch (error) {
-        // Handle token verification errors
-        console.error("Token verification error:", error);
-        return res.status(401).json({ message: "Unauthorized" });
-      }
-  
-      // Check if the user exists in the database
-      const user = await User.findById(userId);
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-  
-      // Find the webinar by ID
-      const webinar = await Webinar.findById(webinarId);
-      if (!webinar) {
-        return res.status(404).json({ message: "Webinar not found" });
-      }
-  
-      // Check if the user is already registered for this webinar
-      if (webinar.isRegister.includes(userId.toString())) {
-        return res.status(400).json({ message: "User already registered for this webinar" });
-      }
-  
-      // Add user ID to the isRegister array
-      webinar.isRegister.push(userId.toString());
-      await webinar.save();
-  
-      // Respond with the webinar link
-      res.status(200).json({ message: "Registration successful", webinarLink: webinar.videoUrl });
-    } catch (error) {
-      console.error("Registration error:", error);
-      res.status(500).json({ message: "Internal server error" });
+    if (!token) {
+        return res.status(401).json({
+            status: "failed",
+            message: "Unauthorized: No token provided",
+        });
     }
+
+    const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+    console.log(decoded);
+    const user = await User.findById(decoded._id).exec();
+
+    if (!user) {
+        return res.status(404).json({
+            status: "failed",
+            message: "User not found",
+        });
+    }
+
+    const webinar = await Webinar.findById(id).exec();
+
+    if (!webinar) {
+        return res.status(404).json({
+            status: "failed",
+            message: "webinar not found",
+        });
+    }
+    console.log(webinar);
+
+    webinar.isRegister.push(decoded._id);
+    await webinar.save();
+
+    return res.status(200).json({
+        status: "success",
+        message: "webinar registered",
+    });
+}
+catch (error) {
+    console.error("Error in registerwebinar:", error);
+    return res.status(500).json({
+        status: "error",
+        message: "Internal server error",
+    });
+}
   };
   
 
