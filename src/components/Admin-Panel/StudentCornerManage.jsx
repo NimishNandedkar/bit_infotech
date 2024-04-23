@@ -50,70 +50,67 @@ function StudentCornerManage() {
 
   return (
     <div>
-       {loading ? (
-                <p>Loading...</p>
-    ) :(
-              <TableContainer component={Paper}>
-                <Table aria-label="projects table">
-                  <TableHead>
+    {loading ? (
+        <p>Loading...</p>
+    ) : (
+        <TableContainer component={Paper}>
+            <Table aria-label="projects table">
+                <TableHead style={{ backgroundColor: '#f5f5f5' }}>
                     <TableRow>
-                      <TableCell>Student Name</TableCell>
-                      <TableCell>Title</TableCell>
-                      <TableCell>Description</TableCell>
-                      <TableCell>Actions</TableCell>
+                        <TableCell><Typography variant="subtitle1">Student Name</Typography></TableCell>
+                        <TableCell><Typography variant="subtitle1">Title</Typography></TableCell>
+                        <TableCell><Typography variant="subtitle1">Description</Typography></TableCell>
+                        <TableCell><Typography variant="subtitle1">Actions</Typography></TableCell>
                     </TableRow>
-                  </TableHead>
-                  <TableBody>
+                </TableHead>
+                <TableBody>
                     {projects.map(project => (
-                      <TableRow key={project._id}>
-                        <TableCell>{project.username.name}</TableCell>
-                        <TableCell>{project.title}</TableCell>
-                        <TableCell>{project.description}</TableCell>
-                        <TableCell>
-                          <Button variant="contained" color="primary"  onClick={() => handleView(project)}>View</Button>
-                          <Button variant="contained" color="error" className="left-2" onClick={() => deleteProject(project._id)}>Delete</Button>
-                        </TableCell>
-                      </TableRow>
+                        <TableRow key={project._id}>
+                            <TableCell>{project.username.name}</TableCell>
+                            <TableCell>{project.title}</TableCell>
+                            <TableCell>{project.description}</TableCell>
+                            <TableCell>
+                                <Button variant="contained" color="primary" onClick={() => handleView(project)}>View</Button>
+                                <Button variant="contained" color="error" style={{ marginLeft: '8px' }} onClick={() => deleteProject(project._id)}>Delete</Button>
+                            </TableCell>
+                        </TableRow>
                     ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
+                </TableBody>
+            </Table>
+        </TableContainer>
+    )}
 
-        )}
-
-          <Modal open={showModal} onClose={closeModal}>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3/5 bg-white p-8 rounded-lg shadow-lg outline-none">
-                    <Typography variant="h4" className="mb-4 text-center text-xl font-bold">Project Details</Typography>
-                    <div className="mb-4">
-                      <Typography variant="h5" className="mb-2">Title:</Typography>
-                      <Typography variant="body1" className="pl-2">{selectedProject?.title}</Typography>
-                    </div>
-                    <div className="mb-4">
-                      <Typography variant="h5" className="mb-2">Description:</Typography>
-                      <Typography variant="body1" className="pl-2">{selectedProject?.description}</Typography>
-                    </div>
-                    <div className="mb-4">
-                      <Typography variant="h5" className="mb-2">Project Type:</Typography>
-                      <Typography variant="body1" className="pl-2">{selectedProject?.projectType}</Typography>
-                    </div>
-                    {/* Display user's name if available */}
-                    {selectedProject?.username && (
-                      <div className="mb-4">
-                        <Typography variant="h5" className="mb-2">Uploaded by:</Typography>
-                        <Typography variant="body1" className="pl-2">{selectedProject?.username?.name}</Typography>
-                      </div>
-                    )}
-                    <div className="flex items-center justify-center">
-                      <a href={selectedProject?.file} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline mr-4">View Project File</a>
-                      <Button variant="contained" color="primary" onClick={() => window.open(selectedProject?.file, '_blank')}>Download</Button>
-                    </div>
-                    <div className="flex justify-center mt-6">
-                      <Button variant="contained" color="secondary" onClick={closeModal}>Close</Button>
-                    </div>
-                  </div>
-          </Modal>
-     
-    </div>
+    <Modal open={showModal} onClose={closeModal}>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3/5 bg-white p-8 rounded-lg shadow-lg outline-none">
+            <Typography variant="h4" className="mb-4 text-center text-xl font-bold">Project Details</Typography>
+            <div className="mb-4">
+                <Typography variant="h5" className="mb-2">Title:</Typography>
+                <Typography variant="body1" className="pl-2">{selectedProject?.title}</Typography>
+            </div>
+            <div className="mb-4">
+                <Typography variant="h5" className="mb-2">Description:</Typography>
+                <Typography variant="body1" className="pl-2">{selectedProject?.description}</Typography>
+            </div>
+            <div className="mb-4">
+                <Typography variant="h5" className="mb-2">Project Type:</Typography>
+                <Typography variant="body1" className="pl-2">{selectedProject?.projectType}</Typography>
+            </div>
+            {selectedProject?.username && (
+                <div className="mb-4">
+                    <Typography variant="h5" className="mb-2">Uploaded by:</Typography>
+                    <Typography variant="body1" className="pl-2">{selectedProject?.username?.name}</Typography>
+                </div>
+            )}
+            <div className="flex items-center justify-center">
+                <a href={selectedProject?.file} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline mr-4">View Project File</a>
+                <Button variant="contained" color="primary" onClick={() => window.open(selectedProject?.file, '_blank')}>Download</Button>
+            </div>
+            <div className="flex justify-center mt-6">
+                <Button variant="contained" color="secondary" onClick={closeModal}>Close</Button>
+            </div>
+        </div>
+    </Modal>
+</div>
   );
 }
 

@@ -159,10 +159,6 @@ function CreateBlog({ blogTitle = "", headerImage = "", blogContent = "", catego
   const handleUpdateBlog = async (e) => {
 
     e.preventDefault();
-
-
-
-
     try {
 
       const formUpdatedDataSend = new FormData();

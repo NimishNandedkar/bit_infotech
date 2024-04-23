@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import DropdownButton from '../StudentCorner/ProjectUpload/Dropdown';
 import ServerResponsePopup from '../../MessagePopUp/ServerResponsePopup';
 
 
-const CreateWebinar = () => {
+const CreateWebinar = ({ selectedProject="" , reqToUpdate = false }) => {
 
   const [isSubmitClicked, setIsSubmitClicked] = useState(false);
   const [serverResponse, setServerResponse] = useState(null);
@@ -19,6 +19,21 @@ const CreateWebinar = () => {
     description: '',
     videoUrl: ''
   });
+
+  // Update form data with props values if they exist
+  useEffect(() => {
+
+    const {title, category ,description , videoUrl} = selectedProject; 
+
+    setWebinarData({
+      title: title ||'',
+      category: category || '',
+      description: description || '',
+      videoUrl: videoUrl ||  ''
+    });
+  }, [selectedProject]);
+
+
 
   const handleChange = (e) => {
     setWebinarData({
@@ -46,6 +61,39 @@ const CreateWebinar = () => {
   };
 
   
+  const handleUpdateWebinar = async (e) => {
+
+    e.preventDefault();
+    try {
+
+      // const formUpdatedDataSend = new FormData();
+      // formUpdatedDataSend.append('blogTitle', formData.blogTitle);
+      // // formUpdatedDataSend.append('headerImage', formData.headerImage);
+      // formUpdatedDataSend.append('blogContent', content);
+      // formUpdatedDataSend.append('category', formData.category);
+
+
+      // if (formData.headerImage) {
+      //   formUpdatedDataSend.append('headerImage', formData.headerImage);
+      // }
+        const response = await axios.patch(`${import.meta.env.VITE_API_BASE_URL}/webinars/update-webinar/${selectedProject._id}`, webinarData);
+      // Handle success
+
+      handleSuccess(response.data.message);
+
+      console.log('Blog updated successfully');
+    } catch (error) {
+      // Handle error
+      handleError(error);
+      console.error('Error updating blog:', error);
+    } finally {
+    
+      // Set isSubmitClicked to true
+      setIsSubmitClicked(true)
+    }
+};
+
+  
   const resetForm = () => {
     // Reset form state
     setWebinarData({
@@ -54,7 +102,7 @@ const CreateWebinar = () => {
     description: '',
     videoUrl: ''
     });
-
+    
     // reset the category
     setIsFormSubmitted(true)
   };
@@ -64,10 +112,10 @@ const CreateWebinar = () => {
     setIsError(false);
     setServerResponse(message);
 
-    resetForm();
-    // if (!reqToUpdate) {
-    //   resetForm();
-    // }
+    
+    if (!reqToUpdate) {
+      resetForm();
+    }
 
     setIsFormSubmitted(true)
 
@@ -101,7 +149,7 @@ const CreateWebinar = () => {
     <div className="max-w-md mx-auto"> 
       
       {serverResponse && <ServerResponsePopup isSubmitClicked={isSubmitClicked} isFormSubmitted={isFormSubmitted} message={serverResponse} isError={isError} resetErrorAndSubmitted={resetErrorAndSubmitted} />}
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form onSubmit={reqToUpdate ? handleUpdateWebinar : handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
       <h2 className="text-2xl font-bold mb-6">Add New Webinar</h2>
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
@@ -163,7 +211,7 @@ const CreateWebinar = () => {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
-            Create Webinar
+            {reqToUpdate ? "Update Webinar" : "Create Webinar"}
           </button>
         </div>
       </form>

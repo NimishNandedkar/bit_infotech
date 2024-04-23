@@ -54,7 +54,7 @@ function EventManage() {
     ) :(
               <TableContainer component={Paper}>
                 <Table aria-label="projects table">
-                  <TableHead>
+                  <TableHead style={{ backgroundColor: '#f5f5f5' }}>
                     <TableRow>
                       <TableCell>Event Name</TableCell>
                       <TableCell>Description</TableCell>
