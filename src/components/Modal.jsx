@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios'; // Import Axios
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -6,74 +7,86 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import TextField from '@mui/material/TextField';
 
-export default function RegistrationDialog() {
+export default function CreateEventDialog({ isopen, setIsOpen, selectedEventid, setSelectedEventid }) {
+
   const [open, setOpen] = useState(false);
-  const [formData, setFormData] = useState({
-    imageUrl: '',
-    eventName: '',
-    hostName: '',
-    agenda: '',
-    eventDate: '',
-    address: '',
-    city: '',
-    state: '',
-    description: '',
-    website: '',
-    twitter: '',
-    linkedIn: '',
-    instagram: '',
-    postal: '',
-    categories: ''
-  });
+  const [events, setEvents] = useState([]); // Initialize events state as an empty array
+  const [reqToUpdate, setReqtoUpdate] = useState(true);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  console.log("event id start", selectedEventid);
+  console.log("is Modal open start ", isopen);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleEditEvent = async (value) => {
+    if (value && selectedEventid) {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/events/getEvents/${selectedEventid}`);
+        setEvents(response.data.data);
+      } catch (error) {
+        console.error('Error fetching event:', error);
+      }
+    }
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
+    if (value) {
+      setOpen(value);
+      setIsOpen(value);
+    }
+    else if (!value) {
+      setOpen(value);
+      setIsOpen(value)
+      setSelectedEventid(null)
+    }
+  }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Here you would make an API call to save the formData to your database
-    console.log(formData);
-    handleClose();
-  };
+  useEffect(() => {
+      
+      handleEditEvent(isopen)
+  
+    }, [isopen, selectedEventid])
+
+
+  const { 
+    eventName, 
+    hostName, 
+    eventDate, 
+    address, 
+    city, 
+    state, 
+    description,
+    website, 
+    twitter, 
+    linkedIn, 
+    instagram, 
+    postal, 
+    categories } = events;   // Destructing the form data recevied form get request
+
+  
 
   return (
     <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>Register</Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Create Event</DialogTitle>
+        <DialogTitle>Update Event</DialogTitle>
         <DialogContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <TextField label="Image URL" name="imageUrl" fullWidth onChange={handleChange} />
-            <TextField label="Event Name" name="eventName" fullWidth onChange={handleChange} />
-            <TextField label="Host Name" name="hostName" fullWidth onChange={handleChange} />
-            <TextField label="Agenda" name="agenda" multiline rows={4} fullWidth onChange={handleChange} />
-            <TextField type="date" label="Event Date" placeholder='Event Date' name="eventDate" fullWidth onChange={handleChange} />
-            <TextField label="Address" name="address" fullWidth onChange={handleChange} />
-            <TextField label="City" name="city" fullWidth onChange={handleChange} />
-            <TextField label="State" name="state" fullWidth onChange={handleChange} />
-            <TextField label="Description" name="description" multiline rows={4} fullWidth onChange={handleChange} />
-            <TextField label="Website" name="website" fullWidth onChange={handleChange} />
-            <TextField label="Twitter" name="twitter" fullWidth onChange={handleChange} />
-            <TextField label="LinkedIn" name="linkedIn" fullWidth onChange={handleChange} />
-            <TextField label="Instagram" name="instagram" fullWidth onChange={handleChange} />
-            <TextField label="Postal" name="postal" fullWidth onChange={handleChange} />
-            <TextField label="Categories" name="categories" fullWidth onChange={handleChange} />
+          <form onSubmit={handleSubmit} className="w-full flex flex-col items-center space-y-4 p-6">
+            {/* Render form fields with values from formData */}
+            <TextField label="Event Name" name="eventName" value={formData.eventName} fullWidth onChange={handleChange} />
+            <TextField label="Host Name" name="hostName" value={formData.hostName} fullWidth onChange={handleChange} />
+            {/* Add other fields here */}
+            <TextField type="date" label="Event Date" name="eventDate" value={formData.eventDate} fullWidth onChange={handleChange} />
+            <TextField label="Address" name="address" value={formData.address} fullWidth onChange={handleChange} />
+            <TextField label="City" name="city" value={formData.city} fullWidth onChange={handleChange} />
+            <TextField label="State" name="state" value={formData.state} fullWidth onChange={handleChange} />
+            <TextField label="Description" name="description" value={formData.description} multiline rows={4} fullWidth onChange={handleChange} />
+            <TextField label="Website" name="website" value={formData.website} fullWidth onChange={handleChange} />
+            <TextField label="Twitter" name="twitter" value={formData.twitter} fullWidth onChange={handleChange} />
+            <TextField label="LinkedIn" name="linkedIn" value={formData.linkedIn} fullWidth onChange={handleChange} />
+            <TextField label="Instagram" name="instagram" value={formData.instagram} fullWidth onChange={handleChange} />
+            <TextField label="Postal" name="postal" value={formData.postal} fullWidth onChange={handleChange} />
+            <TextField label="Categories" name="categories" value={formData.categories} fullWidth onChange={handleChange} />
+            {/* Add other fields here */}
+
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
-              <Button type="submit" color="primary">Create Event</Button>
+              <Button type="submit" color="primary">Update Event</Button>
             </DialogActions>
           </form>
         </DialogContent>

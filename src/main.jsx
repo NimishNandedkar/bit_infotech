@@ -18,6 +18,7 @@ import { Provider } from 'react-redux'
 import store from './store/store.js'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
+import UpdateEvents from './components/Admin-Panel/EditEvent.jsx'
 
 
 
@@ -33,12 +34,12 @@ const router = createBrowserRouter(
       <Route path='blog/:id' element={<Cards />} />
       <Route path='student-corner' element={<ProjectUpload />} />
       <Route path='seminar-webinar' element={<SeminarWebinar />} />
-      <Route path='events' element={<Events />} />
+      <Route path='events/*' element={<Events />} />
       <Route path='login' element={<Login />} />
       <Route path='signup' element={<Signup />} />
       <Route path='/admin/*' element={<AdminPanel />} />
+      <Route path='event/:id' element={<Event/>} />
       <Route path='*' element={<NotFound />} />
-      <Route path='/event/example' element={<Event/>} />
     </Route>
   ))
 

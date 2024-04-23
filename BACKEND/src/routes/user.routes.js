@@ -3,7 +3,6 @@ import { loginUser, logoutUser, registerUser } from "../controllers/user.control
 import getCurrentUser from "../middelwares/auth.middelware.js";
 import { uploadFile } from "../controllers/fileUpload.controller.js";
 import upload from "../middelwares/multer.middelware.js";
-import { isAdmin } from "../middelwares/admin.middelware.js";
 import { getBlogById, getBlogs } from "../controllers/getblogs.controller.js";
 import { deleteStudentProjectData, getStudentProjectData } from "../controllers/studentCornerBackend.js";
 

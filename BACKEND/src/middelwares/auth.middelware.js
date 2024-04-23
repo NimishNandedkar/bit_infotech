@@ -7,12 +7,12 @@ import jwt from "jsonwebtoken";
 const getCurrentUser = async (req, res, next) => {
     
        try {
-        
+        console.log(req.headers);
          console.log(req.cookies);
          const token = req.cookies?.token || req.headers["Authorization"]?.replace("Bearer ", "");
  
          if (!token) {
-             console.log("No token provided");
+             console.log("No token provided in getCurrentUser");
              return res
              .status(400)
              .json({

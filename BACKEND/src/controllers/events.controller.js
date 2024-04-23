@@ -6,57 +6,39 @@ import uploadCloudinary from "../utils/fileupload.js";
 
 
 
+
 const createEvents = async (req, res) => {
-
-    const event = {
-        EventName: req.body.EventName,
-        HostName: req.body.HostName,
-        Agenda: req.body.Agenda,
-        EventDate: req.body.EventDate,
-        Address: req.body.Address,
-        City: req.body.City,
-        State: req.body.State,
-        Description: req.body.Description,
-        Website: req.body.Website,
-        Twitter: req.body.Twitter,
-        LinkedIn: req.body.LinkedIn,
-        Instagram: req.body.Instagram,
-        Postal: req.body.Postal,
-        Categories: req.body.Categories,
-    };
-    const fileLocalPath = req.file?.path;
-    const fileUpload = await uploadCloudinary(fileLocalPath);
-    console.log(fileUpload);
-
-    if (!fileUpload) {
-        return res.status(501).json({ message: "File upload failed" });
-    }
-    // get current user
-
-    // const token = req.cookies?.token;
-    // console.log(token);
-
-    // if (!token) {
-    //     return res.status(401).json({
-    //         message: "Unauthorized",
-    //     });
-    // }
-
-    // const userid = jwt.verify(token, process.env.TOKEN_SECRET);
-
-    // const user = await User.findById(userid);
-    // console.log(user);
-
-    // if (!user) {
-    //     return res.status(404).json({
-    //         message: "User not found",
-    //     });
-    // }
-
     try {
+        const eventData = {
+            eventName: req.body.eventName,
+            hostName: req.body.hostName,
+            subject: req.body.subject,
+            eventDate: req.body.eventDate,
+            address: req.body.address,
+            city: req.body.city,
+            state: req.body.state,
+            description: req.body.description,
+            website: req.body.website,
+            twitter: req.body.twitter,
+            linkedIn: req.body.linkedIn,
+            instagram: req.body.instagram,
+            postal: req.body.postal,
+            categories: req.body.categories,
+        };
+
+        console.log(req.body);
+        const fileLocalPath = req.file?.path;
+        const fileUpload = await uploadCloudinary(fileLocalPath);
+        console.log(fileUpload);
+
+        if (!fileUpload) {
+            return res.status(501).json({ message: "File upload failed" });
+        }
+        console.log(fileUpload.url);
+
         const newEvent = await Events.create({
-            ...event,
-            ImageUrl: fileUpload.url,
+            ...eventData,
+            imageUrl: fileUpload.url, // Ensure the property name matches the schema
         });
 
         if (!newEvent) {
@@ -90,25 +72,29 @@ const getEvents = async (req, res) => {
             });
         }
 
-        const data = events.map((event) => {
-            return {
-                id: event._id,
-                EventName: event.EventName,
-                Agenda: event.Agenda,
-                Image: event.ImageUrl,
-                EventDate: event.EventDate,
-                CeratedAt: event.createdAt,
-            }
-        });
+        // const data = events.map((event) => {
+        //     return {
+        //         id: event._id,
+        //         EventName: event.eventName,
+        //         Subject: event.subject,
+        //         Image: event.imageUrl,
+        //         RegisteredUsers: event.registeredUsers,
+        //         EventDate: event.eventDate,
+        //         CeratedAt: event.createdAt,
+        //     }
+        // });
 
         return res.status(200).json({
             status: "success",
-            data
+            data: events,
+
         });
 
     } catch (error) {
         console.log(error.message + "error in getEvents");
     }
+
+
 }
 
 const getEventById = async (req, res) => {
@@ -155,6 +141,131 @@ const deleteEvent = async (req, res) => {
     }
 }
 
+const updateEvent = async (req, res) => {
+    try {
+        
+        console.log(req.body); // Log request body for debugging purposes
+
+        // Handle file upload if available
+        const fileLocalPath = req.file.path;
+        console.log(fileLocalPath);
+
+        const imageUrl = req.body.imageUrl;
+        console.log(imageUrl);
+        
+
+        if (fileLocalPath) {
+
+            const fileUpload = await uploadCloudinary(fileLocalPath);
+
+            if (!fileUpload) {
+                return res.status(501).json({ message: "File upload failed" });
+            }
+            
+            imageUrl = fileUpload.url;
+        }
+
+        // Update imageUrl in req.body if uploaded
+        if (imageUrl) {
+            req.body.imageUrl = imageUrl;
+        }
+        const updatedData = req.body;
+        const { id } = req.params;
+        const event = await Events.updateOne({_id: id}, { $set: updatedData });
+        console.log(event);
+        if (!event) {
+            return res.status(404).json({
+                status: "failed",
+                message: "Event not found",
+            });
+        }
+
+        return res.status(200).json({
+            status: "success",
+            message: "Event updated",
+            data: event,
+        });
+    } catch (error) {
+        console.error(error.message + "error in updateEvent");
+        return res.status(500).json({ message: "Internal server error" });
+    }
+}
 
 
-export { createEvents, getEvents, getEventById, deleteEvent };
+const registerEvent = async (req, res) => {
+    try {
+
+        console.log(req.headers);
+        console.log(req.cookies);
+        const { id } = req.params;
+        const token = req.cookies?.token || req.headers["Authorization"]?.replace("Bearer ", "");
+        console.log(token);
+
+        if (!token) {
+            return res.status(401).json({
+                status: "failed",
+                message: "Unauthorized: No token provided",
+            });
+        }
+
+        const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
+        console.log(decoded);
+        const user = await User.findById(decoded._id).exec();
+
+        if (!user) {
+            return res.status(404).json({
+                status: "failed",
+                message: "User not found",
+            });
+        }
+
+        const event = await Events.findById(id).exec();
+
+        if (!event) {
+            return res.status(404).json({
+                status: "failed",
+                message: "Event not found",
+            });
+        }
+        console.log(event);
+        event.registeredUsers.push(decoded._id);
+        await event.save();
+
+        return res.status(200).json({
+            status: "success",
+            message: "Event registered",
+        });
+    }
+    catch (error) {
+        console.error("Error in registerEvent:", error);
+        return res.status(500).json({
+            status: "error",
+            message: "Internal server error",
+        });
+    }
+}
+
+const getRegisteredUsers = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const event = await Events.findById(id).populate("registeredUsers").exec();
+
+        if (!event) {
+            return res.status(404).json({
+                status: "failed",
+                message: "Event not found",
+            });
+        }
+
+        return res.status(200).json({
+            status: "success",
+            data: event.registeredUsers,
+        });
+
+    } catch (error) {
+        console.log(error.message + "error in getRegisteredUsers");
+    }
+}
+
+
+export { createEvents, getEvents, getEventById, deleteEvent, updateEvent, registerEvent , getRegisteredUsers};

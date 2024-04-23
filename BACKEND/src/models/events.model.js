@@ -2,64 +2,64 @@
 import mongoose from "mongoose";
 const EventSchema = new mongoose.Schema({
 
-    ImageUrl: {
+    imageUrl: {
         type: String,
         required: true,
     },
-    EventName: {
+    eventName: {
         type: String,
         required: true,
     },
-    HostName: {
+    hostName: {
         type: String,
         required: true,
     },
-    Agenda: {
+    subject: {
         type: String,
     },
-    EventDate: {
+    eventDate: {
         type: Date,
         required: true,
     },
-    Address: {
+    address: {
         type: String,
         required: true,
     },
-    City: {
+    city: {
         type: String,
         required: true,
     },
-    State: {
+    state: {
         type: String,
         required: true,
     },
-    Description: {
+    description: {
         type: String,
         required: true,
     },
-    Website: {
+    website: {
         type: String,
     },
-    Twitter: {
+    twitter: {
         type: String,
     },
-    LinkedIn: {
+    linkedIn: {
         type: String,
     },
-    Instagram: {
+    instagram: {
         type: String,
     },
-    Postal: {
+    postal: {
         type: String,
         required: true,
     },
-    Categories: {
+    categories: {
         type: String,
     },
-    RegistereUsers: {
-        type: Array,
-    },
-
+    registeredUsers: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+    }],
 },
     { timestamps: true });
 

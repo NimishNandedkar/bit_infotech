@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardBody } from '@material-tailwind/react';
@@ -10,14 +10,14 @@ function Blogs() {
   // ************************************
 
   // Remove unused variables
-  const[data, setData] = React.useState(null); // Initialize data state as null
+  const [data, setData] = useState(null); // Initialize data state as null
 
   useEffect(() => {
     async function getBlogs() {
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/user/blogs`, {
           withCredentials: true,
-            });
+        });
         console.log(response);
         // setBlogs(response.data.data);
         // setLoading(false);

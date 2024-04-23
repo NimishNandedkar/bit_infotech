@@ -85,7 +85,7 @@ const loginUser = async (req, res) => {
 
         if (user.role === "admin") {
             // create a jwt token
-            const token = generateToken(user._id).then((token) => {
+            generateToken(user._id).then((token) => {
                 console.log(token);
 
                 const options = {
