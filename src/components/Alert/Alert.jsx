@@ -13,7 +13,7 @@ function Alertjsx({open, handleClose, severity, message, duration}) {
 
                 }}
                 open={open}
-                autoHideDuration= {400}
+                autoHideDuration= {8000}
                 onClose={handleClose}>
 
                 <Alert className='mt-14' variant='filled' color={severity}  onClose={handleClose} severity={severity} >

@@ -1,52 +1,73 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import RegisterBtn from "./RegisterBtn";
+import { Button } from "@mui/material";
+import { set } from "mongoose";
+import Alertjsx from "../Alert/Alert";
 
 export default function Event() {
+
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [severity, setSeverity] = useState('success');
+
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
 
 
   const [data, setData] = useState(null);
-
   const { id } = useParams();
 
   useEffect(() => {
-    async function getEvents() {
+    async function getEventData() {
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/events/getEvent/${id}`, {
           withCredentials: true,
         });
-        console.log(response);
         setData(response.data.data);
-
       } catch (error) {
         console.error('Error fetching events:', error);
       }
     }
-    getEvents();
-  }, []);
+    getEventData();
+  }, [id]);
 
-
-  const handleClick = () => {
-
-    async function registerEvent() {
-      try {
-        const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/events/registerEvent/${id}`, {
+  const handleRegister = async () => {
+    try {
+      const cookies = document.cookie.split(';').reduce((cookies, cookie) => {
+        const [name, value] = cookie.split('=').map(c => c.trim());
+        cookies[name] = value;
+        return cookies;
+      }, {});
+      const token = cookies.token;
+      const encodedId = encodeURIComponent(id);
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/events/registerEvent/${encodedId}`,
+        { token: token },
+        {
           withCredentials: true,
-        });
-        console.log(response);
-        setData(response.data.data);
-
-      } catch (error) {
-        console.error('Error fetching events:', error);
-      }
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      );
+      console.log(response);
+      setOpen(true);
+      setMessage('Event registered successfully');
+      setSeverity('success');
+      setTimeout(() => {
+       useNavigate('/events');  
+      }, 3000);
+      // Update the state or perform any necessary actions after registration
+    } catch (error) {
+      console.error('Error registering event:', error);
     }
-    
-    useEffect(() => {
-      registerEvent();
-    }, []); 
-  }
+  };
 
 
 
@@ -75,6 +96,8 @@ export default function Event() {
   ];
 
   return (
+    <>
+    <Alertjsx duration={8000} handleClose={handleClose} message={message} open={open} severity={severity} />
     <div className="min-h-screen">
       <div className="bg-[#f8f9f9] w-90 mx-2 sm:w-3/5 sm:mx-auto rounded-xl p-2 mb-2 sm:mb-4 my-5">
         <img
@@ -121,7 +144,12 @@ export default function Event() {
             <p className="text-grey-800 py-4 px-3 text-md sm:text-lg">
               Hello! To join the event, please register below.
             </p>
-           <RegisterBtn />
+           <Button 
+           className="w-full bg-[#f02e65] p-1 text-gray-200 hover:bg-[#990e3c] flex justify-center rounded-lg text-md sm:text-lg"
+           onClick={handleRegister} 
+           >
+            Register
+            </Button>
           </div>
           <div className="bg-[#f8f9f9] mx-auto rounded-xl p-2">
             <h4 className="text-black px-3 pb-3 pt-1 font-bold text-md sm:text-lg">
@@ -207,5 +235,6 @@ export default function Event() {
         </div>
       </div>
     </div>
+    </>
   );
 }

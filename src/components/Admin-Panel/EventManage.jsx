@@ -63,10 +63,10 @@ function EventManage() {
 
 
 
-  const handleView = (project) => {
-    setSelectedProject(project);
-    setShowModal(true);
-  };
+  // const handleView = (project) => {
+  //   setSelectedProject(project);
+  //   setShowModal(true);
+  // };
 
   const closeModal = () => {
     setSelectedProject(null);
@@ -110,7 +110,6 @@ function EventManage() {
                   <TableCell>{project.eventName}</TableCell>
                   <TableCell>{project.description}</TableCell>
                   <TableCell>
-                    <Button variant="contained" color="primary" onClick={() => handleView(project)}>View</Button>
                     <Button variant="contained" color="error" className="left-2" onClick={() => deleteProject(project._id)}>Delete</Button>
 
                     <Button variant="contained" color="secondary" className="left-4" onClick={() => handleEdit(project)}> 

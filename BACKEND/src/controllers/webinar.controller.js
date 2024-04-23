@@ -44,7 +44,7 @@ const registerForWebinar = async (req, res) => {
     const { id } = req.params;
     console.log(id);
     const token = req.cookies?.token || req.headers["Authorization"]?.replace("Bearer ", "");
-    console.log(token);
+    console.log(token + ':::::::');
 
     if (!token) {
         return res.status(401).json({
@@ -54,8 +54,8 @@ const registerForWebinar = async (req, res) => {
     }
 
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-    console.log(decoded);
-    const user = await User.findById(decoded._id).exec();
+    console.log(decoded._id);
+    const user = await User.findById(decoded._id)
 
     if (!user) {
         return res.status(404).json({
@@ -74,7 +74,7 @@ const registerForWebinar = async (req, res) => {
     }
     console.log(webinar);
 
-    webinar.isRegister.push(decoded._id);
+    webinar.registeredUsers.push(decoded._id);
     await webinar.save();
 
     return res.status(200).json({
@@ -220,8 +220,30 @@ const updateWebinar = async (req, res) => {
             message: "Internal server error",
         });
     }
-  }    
+  }   
+  
+  const getRegisteredUsers = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const webinar = await Webinar.findById(id).populate("registeredUsers").exec();
+
+        if (!webinar) {
+            return res.status(404).json({
+                status: "failed",
+                message: "webinar not found",
+            });
+        }
+
+        return res.status(200).json({
+            status: "success",
+            data: webinar.registeredUsers,
+        });
+
+    } catch (error) {
+        console.log(error.message + "error in getRegisteredUsers in webinar.controller.js");
+    }
+}
 
 
 
-export { createWebinar, registerForWebinar ,getWebinarData , deleteWebinar , updateWebinar};
+export { createWebinar, registerForWebinar ,getWebinarData , deleteWebinar , updateWebinar, getRegisteredUsers};

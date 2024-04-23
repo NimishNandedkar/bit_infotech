@@ -103,6 +103,10 @@ function ProjectUpload() {
         setFormData({ ...formData, course: option });
         setDropdownVisible(false);
     };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
     // *********************************************************************
 
     const validateForm = (data) => {
@@ -130,7 +134,7 @@ function ProjectUpload() {
 
     return (
         <>
-            <Alertjsx open={open} handleClose={setOpen} severity={severity} message={message} />
+            <Alertjsx open={open} handleClose={handleClose} severity={severity} message={message} />
             <div className="bg-white-100 mt-6 h-full flex items-center justify-center mb-6 ">
                 <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-2xl">
                     <form onSubmit={handleSubmit}>

@@ -184,9 +184,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import FormDialog from '../Modal';
+// import RegisterBtn from './RegisterBtn';
+import { Button } from '@mui/material';
 
 function SeminarWebinar() {
   const navigate = useNavigate();
@@ -210,19 +212,49 @@ function SeminarWebinar() {
     }
   };
 
-  const handleRegister = async (webinarId) => {
-    try {
-      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/webinars/webinar-register/`);
+  const [data, setData] = useState(null);
+  const { id } = useParams();
 
-      if (response.status === 200) {
-        console.log('Registration successful');
-      } else {
-        console.error('Registration failed:', response.data.message);
-      }
-    } catch (error) {
-      console.error('Error registering for webinar:', error.message);
-    }
-  };
+  // useEffect(() => {
+  //   async function getEventData() {
+  //     try {
+  //       const response = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/webinars/webinar-register/${id}`, {
+  //         withCredentials: true,
+  //       });
+  //       setData(response.data.data);
+  //     } catch (error) {
+  //       console.error('Error fetching events:', error);
+  //     }
+  //   }
+  //   getEventData();
+  // }, []);
+
+  // const handleRegisterUser = async (webinarId) => {
+  //   try {
+  //     const cookies = document.cookie.split(';').reduce((cookies, cookie) => {
+  //       const [name, value] = cookie.split('=').map(c => c.trim());
+  //       cookies[name] = value;
+  //       return cookies;
+  //     }, {});
+  //     const token = cookies.token;
+  //     const encodedId = encodeURIComponent(webinarId);
+  //     const response = await axios.post(
+  //       `${import.meta.env.VITE_API_BASE_URL}/webinars/webinar-register/${encodedId}`,
+  //       { token: token },
+  //       {
+  //         withCredentials: true,
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //           'Authorization': `Bearer ${token}`
+  //         }
+  //       }
+  //     );
+  //     console.log(response);
+  //     // Update the state or perform any necessary actions after registration
+  //   } catch (error) {
+  //     console.error('Error registering event:', error);
+  //   }
+  // };
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -235,12 +267,9 @@ function SeminarWebinar() {
               <h2 className="text-xl font-semibold mb-2">{webinar.title}</h2>
               <p className="text-gray-600 mb-4">{webinar.description}</p>
               <div className="flex justify-between items-center">
-                <button
-                  onClick={() => handleRegister(webinar._id)}
-                  className="bg-blue-500 hover:bg-pink-600 text-white py-2 px-4 rounded focus:outline-none "
-                >
+                <Button variant="contained" color="primary"href={`seminar-webinar/${webinar._id}`}>
                   Register
-                </button>
+                </Button>
               </div>
             </div>
           </div>

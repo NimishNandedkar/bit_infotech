@@ -27,7 +27,7 @@ export default function Footer() {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/about" className="hover:underline hover:text-blue-700">
+                                    <Link to="/" className="hover:underline hover:text-blue-700">
                                         About
                                     </Link>
                                 </li>
@@ -57,7 +57,7 @@ export default function Footer() {
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Legal</h2>
                             <ul className="text-gray-500 font-medium">
                                 <li className="mb-4">
-                                    <Link to="https://bitinfotech.in/p/privacy-policy" className="hover:underline hover:text-blue-700">
+                                    <Link to="#" className="hover:underline hover:text-blue-700">
                                         Privacy Policy
                                     </Link>
                                 </li>

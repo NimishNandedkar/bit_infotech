@@ -150,25 +150,20 @@ const deleteEvent = async (req, res) => {
 
 const updateEvent = async (req, res) => {
     try {
-        
         console.log(req.body); // Log request body for debugging purposes
 
         // Handle file upload if available
-        const fileLocalPath = req.file.path;
+        const fileLocalPath = req.file?.path;
         console.log(fileLocalPath);
 
-        const imageUrl = req.body.imageUrl;
+        let imageUrl = req.body.imageUrl;
         console.log(imageUrl);
-        
 
         if (fileLocalPath) {
-
             const fileUpload = await uploadCloudinary(fileLocalPath);
-
             if (!fileUpload) {
                 return res.status(501).json({ message: "File upload failed" });
             }
-            
             imageUrl = fileUpload.url;
         }
 
@@ -176,10 +171,33 @@ const updateEvent = async (req, res) => {
         if (imageUrl) {
             req.body.imageUrl = imageUrl;
         }
-        const updatedData = req.body;
+
         const { id } = req.params;
-        const event = await Events.updateOne({_id: id}, { $set: updatedData });
+        console.log(id);
+
+        const updatedData = {
+            eventName: req.body.EventName,
+            hostName: req.body.hostName,
+            subject: req.body.Subject,
+            eventDate: req.body.EventDate,
+            address: req.body.Address,
+            city: req.body.City,
+            state: req.body.State,
+            description: req.body.Description,
+            website: req.body.Website,
+            twitter: req.body.Twitter,
+            linkedIn: req.body.LinkedIn,
+            instagram: req.body.Instagram,
+            postal: req.body.Postal,
+            categories: req.body.Categories,
+            imageUrl: req.body.imageUrl,
+
+        };
+        console.log(updatedData);
+
+        const event = await Events.findByIdAndUpdate(id, updatedData, { new: true }).exec();
         console.log(event);
+
         if (!event) {
             return res.status(404).json({
                 status: "failed",
@@ -192,8 +210,9 @@ const updateEvent = async (req, res) => {
             message: "Event updated",
             data: event,
         });
+
     } catch (error) {
-        console.error(error.message + "error in updateEvent");
+        console.error(error.message + " error in updateEvent");
         return res.status(500).json({ message: "Internal server error" });
     }
 }

@@ -11,14 +11,16 @@ import SeminarWebinar from './components/Seminar-Webinar/SeminarWebinar.jsx'
 import Login from './components/Login/Login.jsx'
 import Signup from './components/Sign-up/Signup.jsx'
 import Events from './components/Events/Events.jsx'
-import Event from './components/Events/RegisterPage.jsx'
 import Cards from './components/Blogs/Cards/Cards.jsx'
 import AdminPanel from './components/Admin-Panel/AdminPanel.jsx'
 import { Provider } from 'react-redux'
 import store from './store/store.js'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
-import UpdateEvents from './components/Admin-Panel/EditEvent.jsx'
+// import UpdateEvents from './components/Admin-Panel/EditEvent.jsx'
+import Event from './components/Events/RegisterPage.jsx'
+import Confirm from './components/Seminar-Webinar/Confirm.jsx'
+
 
 
 
@@ -33,12 +35,13 @@ const router = createBrowserRouter(
       <Route path='blogs' element={<Blogs />} />
       <Route path='blog/:id' element={<Cards />} />
       <Route path='student-corner' element={<ProjectUpload />} />
-      <Route path='seminar-webinar' element={<SeminarWebinar />} />
+      <Route path='seminar-webinar/*' element={<SeminarWebinar />} />
       <Route path='events/*' element={<Events />} />
       <Route path='login' element={<Login />} />
       <Route path='signup' element={<Signup />} />
       <Route path='/admin/*' element={<AdminPanel />} />
       <Route path='event/:id' element={<Event/>} />
+      <Route path='seminar-webinar/:id' element={<Confirm/>} />
       <Route path='*' element={<NotFound />} />
     </Route>
   ))

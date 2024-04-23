@@ -94,7 +94,7 @@ function Login() {
             <div className='position-relative'>
             <Alert open={open} handleClose={handleClose} severity={severity} message={message} duration={2000} />
             </div>
-            <div className="min-h-screen bg-gray-200 flex flex-col justify-center sm:py-5 ">
+            <div className="min-h-screen bg-gray-200 flex flex-col justify-center sm:py-5">
                 <div className="p-8 xs:p-0 mx-auto md:w-full md:max-w-md">
                     <h1 className="font-bold text-center text-2xl mb-5">Login</h1>
                       {/* optional */}
@@ -142,32 +142,6 @@ function Login() {
                             </div>
                         </div>
                     </form>
-
-                    <div className='font-normal text-xs rounded-lg text-center text-gray-500' >
-                        <span className="inline-block ml-1 mb">Or Login using</span>
-                    </div>
-                    <div className="p-5">
-                        <div className="grid grid-cols-2 gap-1">
-                            <Link to={'*'} className="transition-colors duration-400 ease-in-out border border-gray-200 text-gray-500 w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md hover:text-white hover:bg-blue-500 font-normal text-center inline-block">
-                                Google
-                            </Link>
-                            <Link to={'*'} className="transition-colors duration-400 ease-in-out border border-gray-200 text-gray-500 w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md hover:text-white hover:bg-blue-500 font-normal text-center inline-block">
-                                Github
-                            </Link>
-                        </div>
-                    </div>
-                    <div className="py-5">
-                        <div className="grid grid-cols-2 gap-1">
-                            <div className="text-center sm:text-left whitespace-nowrap">
-                                <button className="transition duration-200 mx-5 px-5 py-4 cursor-pointer font-normal text-sm rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50 ring-inset">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-4 h-4 inline-block align-text-top">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
-                                    </svg>
-                                    <span className="inline-block ml-1">Forgot Password</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
 

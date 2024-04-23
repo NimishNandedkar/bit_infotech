@@ -1,10 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import FormDialog from '../Modal';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 function Events() {
   const [data, setData] = useState(null); // Initialize data state as null
+
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.status);
+
+
+  useEffect(() => {
+      if (!user) {
+          navigate('/login');
+      }
+  }, [user, navigate]);
 
   useEffect(() => {
     async function getEvents() {

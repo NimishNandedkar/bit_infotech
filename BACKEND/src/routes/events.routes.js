@@ -33,7 +33,7 @@ eventRouter.route("/registerEvent/:id").post( registerEvent );
 eventRouter.route("/getRegisteredUsers/:id").get( getRegisteredUsers );
 
 //update event
-eventRouter.route("/updateEvent/:id").patch( upload.single('imageUrl'), updateEvent);
+eventRouter.route("/updateEvent/:id").put( upload.single('imageUrl'), updateEvent);
 
 
 export default eventRouter;
