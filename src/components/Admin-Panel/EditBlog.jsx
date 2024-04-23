@@ -54,7 +54,7 @@ const EditBlog = ({isModalOpen , setIsModalOpen , selectedBlogId , setSelectedBl
       <div id="modal_overlay" className={isOpen ? " absolute inset-0 bg-black bg-opacity-30 h-screen w-full flex justify-center items-start md:items-center pt-10 md:pt-0" : "hidden"}>
 
         {/* modal */}
-        <div id="modal" className={isOpen ? 'overflow-y-auto opacity-100 transform translate-y-0 scale-100 relative w-3/4 md:w-10/12 h-1/2 md:h-3/4 bg-white rounded shadow-lg transition-opacity transition-transform duration-300' : "overflow-scroll opacity-0 transform -translate-y-full scale-150 relative w-10/12 md:w-1/2 h-1/2 md:h-3/4 bg-white rounded shadow-lg transition-opacity transition-transform duration-300"}>
+        <div id="modal" className={isOpen ? 'overflow-y-auto opacity-100 transform translate-y-0 scale-100 relative w-3/4 md:w-10/12 h-1/2 md:h-3/4 bg-white rounded shadow-lg transition-opacity duration-300' : "overflow-scroll opacity-0 transform -translate-y-full scale-150 relative w-10/12 md:w-1/2 h-1/2 md:h-3/4 bg-white rounded shadow-lg transition-opacity duration-300"}>
 
           {/* button close */}
           <button onClick={() => handleEditBlog(false)} className="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-2xl w-10 h-10 rounded-full focus:outline-none text-white">
