@@ -49,6 +49,11 @@ function Signup() {
             setOpen(true);
             setSeverity('success');
             setMessage('Your account has been created successfully');
+            setFormData({
+                name: '',
+                email: '',
+                password: ''
+            });
 
         } catch (error) {
             console.error('Error:', error.message);

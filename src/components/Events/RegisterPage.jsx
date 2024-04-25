@@ -5,12 +5,20 @@ import RegisterBtn from "./RegisterBtn";
 import { Button } from "@mui/material";
 import { set } from "mongoose";
 import Alertjsx from "../Alert/Alert";
+import { useSelector } from "react-redux";
 
 export default function Event() {
 
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [severity, setSeverity] = useState('success');
+
+  const [isUserRegistered, setIsUserRegistered] = useState(false);
+  const [RegisteredUsers, setRegisteredUsers] = useState([]);
+
+  const userid = useSelector((state) => state.auth.userData._id);
+
+  console.log(userid);
 
 
   const handleClose = () => {
@@ -29,6 +37,7 @@ export default function Event() {
           withCredentials: true,
         });
         setData(response.data.data);
+        setRegisteredUsers(response.data.data.registeredUsers);
       } catch (error) {
         console.error('Error fetching events:', error);
       }
@@ -56,13 +65,11 @@ export default function Event() {
           }
         }
       );
-      console.log(response);
       setOpen(true);
-      setMessage('Event registered successfully');
+      setMessage('Webinar registered successfully');
       setSeverity('success');
-      setTimeout(() => {
-       useNavigate('/events');  
-      }, 3000);
+      setIsUserRegistered(true);
+     
       // Update the state or perform any necessary actions after registration
     } catch (error) {
       console.error('Error registering event:', error);
@@ -70,30 +77,18 @@ export default function Event() {
   };
 
 
+  
 
-  // Static data placeholders
-  const docs = {
-    url: "https://source.unsplash.com/random/1000x400",
-    eventname: "Event Name",
-    hostname: "Host Name",
-    eventdate: "Event Date",
-    address: "Event Address",
-    city: "Event City",
-    state: "Event State",
-    description: "Event Description",
-    website: "#",
-    twitter: "#",
-    linkedin: "#",
-    instagram: "#",
-    postal: "390019", // Sample postal code
-  };
+  useEffect(() => {
+    RegisteredUsers.forEach((user) => {
+      console.log(user);
+      if (user === userid) {
+        setIsUserRegistered(true);
+      }
+    });
+  }, [RegisteredUsers, userid, isUserRegistered]);
 
-  // Static sponsors data
-  const sponsors = [
-    { id: 1, name: "Sponsor 1", url: "#" },
-    { id: 2, name: "Sponsor 2", url: "#" },
-    { id: 3, name: "Sponsor 3", url: "#" },
-  ];
+  console.log(RegisteredUsers);
 
   return (
     <>
@@ -144,12 +139,21 @@ export default function Event() {
             <p className="text-grey-800 py-4 px-3 text-md sm:text-lg">
               Hello! To join the event, please register below.
             </p>
-           <Button 
-           className="w-full bg-[#f02e65] p-1 text-gray-200 hover:bg-[#990e3c] flex justify-center rounded-lg text-md sm:text-lg"
-           onClick={handleRegister} 
-           >
-            Register
-            </Button>
+            {isUserRegistered ? (
+              <a
+                target="_blank"
+                className="bg-green-500 hover:bg-green-700 w-full text-white font-bold py-2 px-4 rounded"
+              >
+                Aleready Registered
+              </a>
+            ) : (
+              <button
+                className="w-full bg-blue-500 hover:bg-blue-700 text-white  font-bold py-2 px-4 rounded"
+                onClick={handleRegister}
+              >
+                Register
+              </button>
+            )}
           </div>
           <div className="bg-[#f8f9f9] mx-auto rounded-xl p-2">
             <h4 className="text-black px-3 pb-3 pt-1 font-bold text-md sm:text-lg">

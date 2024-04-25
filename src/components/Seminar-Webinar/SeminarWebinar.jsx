@@ -268,7 +268,7 @@ function SeminarWebinar() {
               <p className="text-gray-600 mb-4">{webinar.description}</p>
               <div className="flex justify-between items-center">
                 <Button variant="contained" color="primary"href={`seminar-webinar/${webinar._id}`}>
-                  Register
+                  Get Details
                 </Button>
               </div>
             </div>

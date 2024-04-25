@@ -111,11 +111,9 @@ function EventManage() {
                   <TableCell>{project.description}</TableCell>
                   <TableCell>
                     <Button variant="contained" color="error" className="left-2" onClick={() => deleteProject(project._id)}>Delete</Button>
-
                     <Button variant="contained" color="secondary" className="left-4" onClick={() => handleEdit(project)}> 
                     Edit
                     </Button>
-
                     <Button variant="contained" color="primary" className="left-6" onClick={() => getRegisteredUsers(project._id)}>Registered users</Button>
                   </TableCell>
                 </TableRow>

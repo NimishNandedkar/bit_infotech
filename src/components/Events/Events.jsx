@@ -56,7 +56,7 @@ function Events() {
                   <p className="mb-8 leading-relaxed">{item.subject}</p>
                   <div className="flex items-center mb-2">
                     <p className="mb-8 leading-relaxed">
-                      Event Date: {item.eventDate}
+                      Event Date: {item.eventDate.split('T')[0]}
                     </p>
                   </div>
                   <div className="flex justify-center">

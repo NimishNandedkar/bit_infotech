@@ -81,6 +81,15 @@ function ProjectUpload() {
                     setOpen(true);
                     setSeverity('success');
                     setMessage('Project uploaded successfully');
+                    setFormData({
+                        title: "",
+                        subjectName: "",
+                        projectType: "",
+                        description: "",
+                        course: "",
+                        file: null
+                    });
+                    navigate('/student-corner');
                 }
                 console.log(response.data);
             } else {
