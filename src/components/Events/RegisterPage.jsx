@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import RegisterBtn from "./RegisterBtn";
 import { Button } from "@mui/material";
-import { set } from "mongoose";
+
 import Alertjsx from "../Alert/Alert";
 import { useSelector } from "react-redux";
 
