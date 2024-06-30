@@ -1,4 +1,4 @@
-# Project Name
+# Bit Baroda
 
 Welcome to the documentation for our project built on the MERN stack (MongoDB, Express.js, React.js, Node.js). This project serves as a comprehensive platform catering to a diverse range of users with various sections tailored to their needs.
 
