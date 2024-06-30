@@ -11,7 +11,7 @@ Welcome to the documentation for our project built on the MERN stack (MongoDB, E
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [Screen-Shots](#screen-shot)
+- [Screen-Shots](#screen-shots)
 
 ## Overview
 
@@ -98,7 +98,7 @@ This website is designed to provide an engaging experience with the following ke
 ## Contributing
 We welcome contributions! Please fork the repository and submit a pull request for any improvements or bug fixes.
 
-## Screen-Shot
+## Screen-Shots
 
 ### Landing Page 
 
